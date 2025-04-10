@@ -1,0 +1,103 @@
+footer{
+    position: relative;
+    background-color: var(--clr-primary-500);
+    .contactDetails{
+        position: relative;
+        padding-right: 100px;
+        @media (max-width: 768px) {
+            padding-right: 0;
+        }
+        h1{
+            position: relative;
+            font-size: 38px;
+            font-weight: 700;
+            color: var(--clr-secondary-500);
+        }
+        p{
+            position: relative;
+            color: var(--clr-neutral-100);
+            font-size: 14px;
+            font-weight: 400;
+        }
+        ul{
+            position: relative;
+            line-height: none;
+            padding: 0;
+            margin: 0;
+            margin-top: 40px;
+            li{
+                position: relative;
+                display: flex;
+                align-items: flex-start;
+                gap: 15px;
+                p{
+                    font-size: 16px;
+                }
+            }
+        }
+    }
+    h2{
+        position: relative;
+        color: var(--clr-neutral-100);
+        font-size: 18px;
+        font-weight: 600;
+    }
+    .footerNav{
+        position: relative;
+        display: flex;
+        list-style: none;
+        flex-direction: column;
+        padding: 0;
+        margin: 0;
+        gap: 8px;
+        margin-top: 10px;
+        a{
+            position: relative;
+            display: inline-block;
+            color: var(--clr-neutral-100);
+            font-size: 15px;
+            text-decoration: none;
+            font-weight: 400;
+            transition: all 0.3s;
+            &:hover{
+                color: var(--clr-secondary-500);
+            }
+        }
+    }
+    .footerSocial{
+        position: relative;
+        display: flex;
+        padding: 0;
+        margin: 0;
+        margin-top: 10px;
+        list-style: none;
+        gap: 10px;
+        a{
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background-color: var(--clr-secondary-500);
+            transition: all 0.3s;
+            &:hover{
+                background-color: var(--clr-secondary-500-hover);
+            }
+        }
+    }
+    .bottom{
+        position: relative;
+        padding: 0 0 10px;
+        p{
+            position: relative;
+            text-align: center;
+            color: var(--clr-neutral-100);
+            font-size: 14px;
+            font-weight: 400;
+            padding-top: 30px;
+            border-top: 1px solid var(--clr-neutral-100);
+        }
+    }
+}

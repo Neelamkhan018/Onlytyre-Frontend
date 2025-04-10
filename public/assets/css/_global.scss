@@ -1,0 +1,32 @@
+/* general styling */
+  
+body {
+    font-size: var(--fs-body);
+    font-family: var(--ff-body);
+    color: var(--clr-neutral-800);
+  }
+ p{
+    position: relative;
+    font-size: 15px;
+    line-height: 1.6;
+    font-weight: var(--fw-regular);
+    color: var(--clr-neutral-600);
+  }
+  
+#main{
+  position: relative;
+  overflow: hidden;
+}
+.container{
+  max-width: 1200px;
+}
+a{
+  text-decoration: none;
+  color: inherit;
+}
+.hideMobile{
+  display: block;
+  @media (max-width: 768px) {
+    display: none;
+  }
+}

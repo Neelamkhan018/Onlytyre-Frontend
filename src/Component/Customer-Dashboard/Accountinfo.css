@@ -1,0 +1,91 @@
+/* account-information */
+
+/* Main container for Account Information */
+.main-container {
+    display: flex;
+    margin-top: 120px;
+  }
+  
+  .account-info-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 20px;
+  }
+  
+  .account-info-left, .account-info-right {
+    width: 48%;
+  }
+  
+  .form-section label {
+    display: block;
+    margin-bottom: 15px;
+  }
+  
+  /* Styling for input fields and select dropdowns */
+  .form-section input, .form-section select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  /* Styling for text inputs with transparent background */
+  .form-section input, .form-section select {
+    width: 100%;
+    padding: 8px 0;
+    margin-top: 5px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    background-color: transparent;
+    font-size: 14px;
+  }
+  
+  /* Focus state for inputs and selects */
+  .form-section input:focus, .form-section select:focus {
+    outline: none;
+    border-bottom: 2px solid #0056b3;
+    transition: border-bottom 0.3s ease-in-out;
+  }
+  
+  /* Improved checkbox section styling */
+  .checkbox-section {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .checkbox-section input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+    accent-color: #007bff; /* Custom color for checkbox */
+    cursor: pointer;
+    margin: 20px;
+  }
+  
+  /* Label styling for checkboxes */
+  .checkbox-section label {
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  /* Styling for save button */
+  .save-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .save-button:hover {
+    background-color: #0056b3;
+  }
+  
+
+  

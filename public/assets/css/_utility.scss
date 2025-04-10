@@ -1,0 +1,147 @@
+.text-primary-500 {
+  color: var(--clr-primary-500);
+}
+.text-neutral-100 {
+  color: var(--clr-neutral-100) !important;
+}
+.text-neutral-400 {
+  color: var(--clr-neutral-400);
+}
+.text-neutral-600 {
+  color: var(--clr-neutral-600);
+}
+.text-neutral-800 {
+  color: var(--clr-neutral-800);
+}
+.text-neutral-900 {
+  color: var(--clr-neutral-900) !important;
+}
+
+.bg-primary-200 {
+  background-color: var(--clr-primary-200);
+}
+.bg-primary-300 {
+  background-color: var(--clr-primary-300);
+}
+.bg-primary-400 {
+  background-color: var(--clr-primary-400);
+}
+
+.bg-neutral-100 {
+  background-color: var(--clr-neutral-100);
+}
+.bg-neutral-150 {
+  background-color: var(--clr-neutral-150);
+}
+.bg-grey-100 {
+  background-color: var(--clr-grey-100);
+}
+
+.fw-bold {
+  font-weight: var(--fw-bold);
+}
+.fw-semiBold {
+  font-weight: var(--fw-semiBold);
+}
+.fw-medium {
+  font-weight: var(--fw-medium);
+}
+.fw-regular {
+  font-weight: var(--fw-regular);
+}
+
+.fs-200 {
+  font-size: var(--fs-200) !important;
+}
+.fs-250 {
+  font-size: var(--fs-250) !important;
+}
+.fs-300 {
+  font-size: var(--fs-300) !important;
+}
+.fs-400 {
+  font-size: var(--fs-400) !important;
+}
+.fs-500 {
+  font-size: var(--fs-500) !important;
+}
+.fs-600 {
+  font-size: var(--fs-600) !important;
+}
+
+.h-100 {
+  height: 100vh !important;
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+}
+.text-normal {
+  text-transform: none !important;
+}
+
+.padding-block-900 {
+  padding: 90px 0;
+}
+.padding-block-500 {
+  padding:70px 0;
+}
+.margin-top-900 {
+  margin-top: var(--size-900);
+}
+.margin-bottom-900 {
+  margin-bottom: var(--size-900);
+}
+.margin-top-max{
+  margin-top: 110px;
+}
+.margin-block-max{
+  margin: 110px 0;
+}
+.margin-bottom-max {
+  margin-bottom: 110px;
+}
+
+.padding-top-max{
+  padding-top: 120px;
+}
+.padding-block-max{
+  padding: 120px 0;
+}
+
+@media (max-width: 768px) {
+    .margin-top-max{
+        margin-top: 70px;
+    }
+    .margin-block-max{
+        margin: 70px 0;
+    }
+    .margin-bottom-max {
+      margin-bottom: 70px;
+    }
+
+    .padding-block-900 {
+      padding: 70px 0;
+    }
+    
+    .margin-top-900 {
+      margin-top: 70px;
+    }
+    .margin-bottom-900 {
+      margin-bottom: 70px;
+    }
+    .padding-top-max{
+        padding-top: 70px;
+    }
+    .padding-block-max{
+        padding: 70px 0;
+    }
+}
+
+.error,
+.error p,
+label.error {
+  font-size: var(--fs-200);
+  margin-top: 0;
+  color: #ff0000;
+}
