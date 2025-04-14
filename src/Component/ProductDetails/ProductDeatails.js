@@ -1284,8 +1284,8 @@ const handleDecrement = () => {
       )}
       {tyre.tyreType === 'bike' && (
         <>
-          <li>{bikeBrandName || 'Loading...'}</li>
-          <li>{bikeModelName || 'Loading...'}</li>
+          <li>{tyre.bikeBrand}</li>
+          <li>{tyre.bikeModel}</li>
         </>
       )}
       {tyre.tyreType === 'truck' && (
