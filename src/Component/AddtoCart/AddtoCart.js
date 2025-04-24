@@ -380,7 +380,7 @@ const handleCheckout = async () => {
 
   if (!loggedInUser) {
       alert("Please log in or register to proceed to checkout.");
-      navigate('/front-register');
+      navigate('/Loginpage');
       return;
   }
 
