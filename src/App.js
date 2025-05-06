@@ -17,18 +17,11 @@ import ProductDeatails from './Component/ProductDetails/ProductDeatails.js';
 import AddtoCart from './Component/AddtoCart/AddtoCart.js';
 import HeaderMenu from './Component/Menu/HeaderMenu.js';
 import Buynow from './Component/Buynow/Buynow.js';
-
 import Register from './Component/FrontendLogin/Register.js';
 import FrontendLogin from './Component/FrontendLogin/Login.js';
-import Accountinfo from './Component/Customer-Dashboard/Accountinfo.js';
 import AddressBook from './Component/Customer-Dashboard/AddressBook.js';
-
 import Myaccount from './Component/Customer-Dashboard/Myaccount.js';
-import Myinvitations from './Component/Customer-Dashboard/Myinvitations.js';
 import Myorders from './Component/Customer-Dashboard/Myorders.js';
-import Signout from './Component/Customer-Dashboard/Signout.js';
-import MyVehicle from './Component/Customer-Dashboard/MyVehicle.js';
-import Createcustomerform from './Component/Customer-Dashboard/Createcustomerform.js';
 import Forcar from './Component/Carbrand/Forcar.js';
 import ForBike from './Component/Bike/ForBike.js';
 import SearchBike from './Component/Bike/Searchbike.js';
@@ -44,6 +37,12 @@ import ForTruck from './Component/Truck/ForTruck.js';
 import SearchTruck from './Component/Truck/SearchTruck.js';
 import ForTractor from './Component/Tractor/ForTractor.js';
 import SearchTractor from './Component/Tractor/SearchTractor.js';
+import Batteries from './Component/Battery/Batteries.js';
+import AlloyWheels from './Component/AlloyWheel/AlloyWheel.js';
+import Accessories from './Component/Accessories/Accessories.js';
+import Wishlist from './Component/Customer-Dashboard/Wishlist.js';
+import AccountDetails from './Component/Customer-Dashboard/AccountDetails.js';
+import AccountOrderView from './Component/Customer-Dashboard/AccountOrdersView.js';
 
 
 
@@ -91,9 +90,11 @@ export default function App() {
     
     // Define frontend routes where HeaderMenu should be displayed
     const frontendRoutes = [
-        '/', '/main', '/menu', '/show', '/addtocart',
-        '/forcar', '/forbike', '/tyres', '/Loginpage',
-        '/front-register', '/bestdeal', '/forTruck', '/forTractor'
+        '/', '/main', '/menu', '/show', '/addtocart', '/Shipping' ,
+        '/forcar', '/forbike', '/tyres', '/Loginpage','/billing' ,
+        '/front-register', '/bestdeal', '/forTruck', '/forTractor' ,
+        '/batteries' , '/alloywheel' , '/accessories' , '/my-account' , 
+        '/my-orders' ,'/address-Book' , '/Acc-details' , '/Wishlist' , '/accountorderview'
     ];
   
     // Check if the current route matches a static route
@@ -150,14 +151,12 @@ export default function App() {
                     <Route path="/buy" element={<Buynow />} />
                     <Route path="/front-register" element={<Register/>} />
                     <Route path="/front-login" element={<FrontendLogin/>} />
-                    <Route path="/acc-info" element={<Accountinfo/>} />
                     <Route path="/address-book" element={<AddressBook/>} />
-                    <Route path="/my-account" element={<Myaccount />} />
-                    <Route path="/my-invitations" element={<Myinvitations/>} />
+                    <Route path="/my-account" element={<Myaccount />} />            
                     <Route path="/my-orders" element={<Myorders/>} />
-                    <Route path="/sign-out" element={<Signout/>} />
-                    <Route path="/my-vehicle" element={<MyVehicle/>} />
-                    <Route path="/customerform" element={<Createcustomerform/>} />
+                    <Route path="/Wishlist" element={<Wishlist/>} />
+                    <Route path="/Acc-details" element={<AccountDetails/>} />
+
                     <Route path="/forcar" element={<Forcar/>} />
                     <Route path="/forbike" element={<ForBike/>} />
                     <Route path="/Searchbike/:tyreType/:bikeBrand/:bikeModel/:tyreBrand/:season" element={<SearchBike />} />
@@ -176,6 +175,18 @@ export default function App() {
 
                     <Route path="/forTractor" element={<ForTractor/>} />
                     <Route path="/SearchTractor/:tyreType/:TractorBrand/:TractorModel/:tyreBrand/:season" element={<SearchTractor/>} />
+
+                    <Route path="/batteries" element={<Batteries/>} />
+
+                    <Route path="/alloywheel" element={<AlloyWheels/>} />
+
+                    <Route path="/accessories" element={<Accessories/>} />
+
+                    <Route path="/accountorderview" element={<AccountOrderView/>} />
+
+
+
+
 
 
 

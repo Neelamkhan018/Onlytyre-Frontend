@@ -262,27 +262,28 @@
 
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import HeaderMenu from "../Menu/HeaderMenu";
 
 const Myaccount = () => {
-  const [loggedInUser , setLoggedInUser ] = useState(null);
 
-  useEffect(() => {
-    // Fetch the logged-in user's email from localStorage
-    const storedUser  = localStorage.getItem("loggedInUser ");
-    if (storedUser ) {
-      setLoggedInUser (storedUser );
-    }
-  }, []);
+
+  const [loggedInUser, setLoggedInUser] = useState("");
+
+useEffect(() => {
+  const storedUser = localStorage.getItem('loggedInUser');
+  if (storedUser) {
+    setLoggedInUser(storedUser);
+  }
+}, []);
+
 
   const handleLogout = () => {
     setLoggedInUser (null);
-    localStorage.removeItem('loggedInUser '); // Removed extra space
+    localStorage.removeItem('loggedInUser');  // ✅ CORRECTED key
   };
 
   return (
     <>
-      <HeaderMenu />
+
       <section className="titleBanner">
         <div className="container">
           <div className="row">
@@ -305,22 +306,22 @@ const Myaccount = () => {
               <h3 className="ff-primary fs-22 fw-semibold border-bottom pb-2">MY ACCOUNT</h3>
               <ul className="leftMenu">
                 <li className="active">
-                  <a href="my-account">Dashboard</a>
+                  <a href="/my-account">Dashboard</a>
                 </li>
                 <li>
-                  <a href="my-account-orders">Orders</a>
+                  <a href="/my-orders">Orders</a>
                 </li>
                 <li>
                   <a href="my-account-downloads">Downloads</a>
                 </li>
                 <li>
-                  <a href="address-Book">Addresses</a>
+                  <a href="/address-Book">Addresses</a>
                 </li>
                 <li>
-                  <a href="my-account-details">Account details</a>
+                  <a href="/Acc-details">Account details</a>
                 </li>
                 <li>
-                  <a href="my-account-wishlist">Wishlist</a>
+                  <a href="/Wishlist">Wishlist</a>
                 </li>
                 <li>
                   <a href="" onClick={handleLogout}>Logout</a>
@@ -340,8 +341,8 @@ const Myaccount = () => {
               </p>
               <div className="row row-gap-4 mt-4">
                 <div className="col-6 col-md-4">
-                  <a href="my-account-orders" className="dashboardLink">
-                    <img src="assets/images/icons/svg/orders.svg" alt="Orders" />
+                  <a href="my-orders" className="dashboardLink">
+                    <img src="assets/images/icons/svg/orders.svg" alt="my-orders" />
                     <span>ORDERS</span>
                   </a>
                 </div>
@@ -352,19 +353,19 @@ const Myaccount = () => {
                   </a>
                 </div>
                 <div className="col-6 col-md-4">
-                  <a href="address-book" className="dashboardLink">
-                    <img src="assets/images/icons/svg/address.svg" alt="Addresses" />
+                  <a href="address-Book" className="dashboardLink">
+                    <img src="assets/images/icons/svg/address.svg" alt="Address-Book" />
                     <span>ADDRESSES</span>
                   </a>
                 </div>
                 <div className="col-6 col-md-4">
-                  <a href="my-account-details" className="dashboardLink">
-                    <img src="assets/images/icons/svg/account-2.svg" alt="Account Details" />
+                  <a href="Acc-details" className="dashboardLink">
+                    <img src="assets/images/icons/svg/account-2.svg" alt="Acc-details" />
                     <span>ACCOUNT DETAILS</span>
                   </a>
                 </div>
                 <div className="col-6 col-md-4">
-                  <a href="my-account-wishlist" className="dashboardLink">
+                  <a href="Wishlist" className="dashboardLink">
                     <img src="assets/images/icons/svg/wishlist-2.svg" alt="Wishlist" />
                     <span>WISHLIST</span>
                   </a>

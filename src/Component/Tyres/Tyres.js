@@ -451,6 +451,40 @@ const ForTyre = () => {
     fetchBrands();
   }, []);
 
+  // useEffect(() => {
+  //   const fetchTyres = async () => {
+  //     setLoading(true);
+  //     try {
+  //       const response = await fetch(`${url.nodeapipath}/get-tyres`);
+  //       const data = await response.json();
+  //       console.log('Fetched tyres:', data);
+        
+  //       // Filter car, bike, truck, and tractor tyres and remove duplicates
+  //       const carTyres = data.filter(tyre => tyre.tyreType === 'car');
+  //       const uniqueCarTyres = [...new Map(carTyres.map(t => [t._id, t])).values()];
+        
+  //       const bikeTyres = data.filter(tyre => tyre.tyreType === 'bike');
+  //       const uniqueBikeTyres = [...new Map(bikeTyres.map(t => [t._id, t])).values()];
+
+  //       const truckTyres = data.filter(tyre => tyre.tyreType === 'truck');
+  //       const uniqueTruckTyres = [...new Map(truckTyres.map(t => [t._id, t])).values()];
+
+  //       const tractorTyres = data.filter(tyre => tyre.tyreType === 'tractor'); // New line for tractor tyres
+  //       const uniqueTractorTyres = [...new Map(tractorTyres.map(t => [t._id, t])).values()]; // Remove duplicates
+
+  //       // Combine all tyres
+  //       setSortedTyres([...uniqueCarTyres, ...uniqueBikeTyres, ...uniqueTruckTyres, ...uniqueTractorTyres]);
+  //     } catch (error) {
+  //       console.error('Error fetching tyres:', error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+  
+  //   fetchTyres();
+  // }, []);
+  
+
   useEffect(() => {
     const fetchTyres = async () => {
       setLoading(true);
@@ -459,21 +493,38 @@ const ForTyre = () => {
         const data = await response.json();
         console.log('Fetched tyres:', data);
         
-        // Filter car, bike, truck, and tractor tyres and remove duplicates
+        // Filter car, bike, truck, tractor tyres, batteries, alloy wheels, and accessories
         const carTyres = data.filter(tyre => tyre.tyreType === 'car');
         const uniqueCarTyres = [...new Map(carTyres.map(t => [t._id, t])).values()];
         
         const bikeTyres = data.filter(tyre => tyre.tyreType === 'bike');
         const uniqueBikeTyres = [...new Map(bikeTyres.map(t => [t._id, t])).values()];
-
+  
         const truckTyres = data.filter(tyre => tyre.tyreType === 'truck');
         const uniqueTruckTyres = [...new Map(truckTyres.map(t => [t._id, t])).values()];
-
-        const tractorTyres = data.filter(tyre => tyre.tyreType === 'tractor'); // New line for tractor tyres
-        const uniqueTractorTyres = [...new Map(tractorTyres.map(t => [t._id, t])).values()]; // Remove duplicates
-
-        // Combine all tyres
-        setSortedTyres([...uniqueCarTyres, ...uniqueBikeTyres, ...uniqueTruckTyres, ...uniqueTractorTyres]);
+  
+        const tractorTyres = data.filter(tyre => tyre.tyreType === 'tractor');
+        const uniqueTractorTyres = [...new Map(tractorTyres.map(t => [t._id, t])).values()];
+  
+        const batteries = data.filter(tyre => tyre.tyreType === 'battery'); // Assuming type is used for batteries
+        const uniqueBatteries = [...new Map(batteries.map(t => [t._id, t])).values()];
+  
+        const alloyWheels = data.filter(tyre => tyre.tyreType === 'alloywheel'); // Assuming type is used for alloy wheels
+        const uniqueAlloyWheels = [...new Map(alloyWheels.map(t => [t._id, t])).values()];
+  
+        const accessories = data.filter(tyre => tyre.tyreType === 'accessories'); // Assuming type is used for accessories
+        const uniqueAccessories = [...new Map(accessories.map(t => [t._id, t])).values()];
+  
+        // Combine all unique tyres, batteries, alloy wheels, and accessories
+        setSortedTyres([
+          ...uniqueCarTyres,
+          ...uniqueBikeTyres,
+          ...uniqueTruckTyres,
+          ...uniqueTractorTyres,
+          ...uniqueBatteries,
+          ...uniqueAlloyWheels,
+          ...uniqueAccessories
+        ]);
       } catch (error) {
         console.error('Error fetching tyres:', error);
       } finally {
@@ -483,7 +534,11 @@ const ForTyre = () => {
   
     fetchTyres();
   }, []);
-  
+
+
+
+
+
   const handleSortChange = (event) => {
     const value = event.target.value;
     setSortOption(value);
@@ -680,7 +735,9 @@ const ForTyre = () => {
                                 </li>
                               )}
                             </ul>
-                            <img src={`${url.nodeapipath}/uploads/${tyre.avatarImages}`} alt={tyre.title} />
+                            {/* <img src={`${url.nodeapipath}/uploads/${tyre.avatarImages}`} alt={tyre.title} /> */}
+                <img src={`https://tyres.blr1.digitaloceanspaces.com/${tyre.avatarImages}`} alt={tyre.title} />
+
                           </div>
                           <div className="details">
                             <div className="brand">{tyre.brand}</div>

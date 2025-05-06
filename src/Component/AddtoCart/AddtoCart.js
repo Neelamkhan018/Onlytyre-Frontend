@@ -391,7 +391,8 @@ const handleCheckout = async () => {
       items: cart.map(item => ({
           productId: item._id,
           title: item.title,
-          image: item.avatarImages ? `${url.nodeapipath}/uploads/${item.avatarImages}` : "default-image.jpg",
+          // image: item.avatarImages ? `${url.nodeapipath}/uploads/${item.avatarImages}` : "default-image.jpg",
+          image: item.avatarImages ? `https://tyres.blr1.digitaloceanspaces.com/${item.avatarImages}` : "",
           price: item.selectedPrice || item.Salesprice,
           quantity: item.quantity || 1,
           deliveryType: item.deliveryType,   // ✅ Include delivery type
@@ -477,7 +478,9 @@ const handleCheckout = async () => {
                           <td>
                             <div className="product">
                               <div className="photo">
-                                <img src={`${url.nodeapipath}/uploads/${item.avatarImages}`} alt={item.avatarImages} />
+                                {/* <img src={`${url.nodeapipath}/uploads/${item.avatarImages}`} alt={item.avatarImages} /> */}
+                      <img src={`https://tyres.blr1.digitaloceanspaces.com/${item.avatarImages}`} alt={item.avatarImages} />
+
                               </div>
                               <div className="details">
                                 <div className="brand">{item.brand}</div>
@@ -580,7 +583,8 @@ const handleCheckout = async () => {
                             <div className="rightbox">
                               <div className="photo">
                                 <img
-                                  src={`${url.nodeapipath}/uploads/${item.avatarImages}`}
+                                  // src={`${url.nodeapipath}/uploads/${item.avatarImages}`}
+                                  src={`https://tyres.blr1.digitaloceanspaces.com/${item.avatarImages}`}
                                   alt={item.avatarImages}
                                 />
                               </div>

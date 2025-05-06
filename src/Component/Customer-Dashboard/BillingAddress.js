@@ -43,7 +43,7 @@ const Billingaddress = () => {
 
   return (
     <>
-    <HeaderMenu/>
+ 
       <section className="titleBanner">
         <div className="container">
           <div className="row">
@@ -68,22 +68,22 @@ const Billingaddress = () => {
               </h3>
               <ul className="leftMenu">
                 <li>
-                  <Link to="my-account">Dashboard</Link>
+                  <Link to="/my-account">Dashboard</Link>
                 </li>
                 <li>
-                  <Link to="my-account-orders">Orders</Link>
+                  <Link to="/my-orders">Orders</Link>
                 </li>
                 <li>
                   <Link to="my-account-downloads">Downloads</Link>
                 </li>
                 <li className="active">
-                  <Link to="my-account-address">Addresses</Link>
+                  <Link to="/address-Book">Addresses</Link>
                 </li>
                 <li>
-                  <Link to="my-account-details">Account details</Link>
+                  <Link to="/Acc-details">Account details</Link>
                 </li>
                 <li>
-                  <Link to="my-account-wishlist">Wishlist</Link>
+                  <Link to="/Wishlist">Wishlist</Link>
                 </li>
                 <li>
                   <Link to="">Logout</Link>

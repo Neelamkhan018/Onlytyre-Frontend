@@ -139,7 +139,9 @@ const location = useLocation()
                   <div className='buynow-checkout-img'>
                     <div className='buynow-checkout-img-box'>
                   <img
-               src={`${url.nodeapipath}/uploads/${item.avatarImages}`}
+              //  src={`${url.nodeapipath}/uploads/${item.avatarImages}`}
+               src={`https://tyres.blr1.digitaloceanspaces.com/${item.avatarImages}`} 
+
                alt={item.avatarImages}
                className="buynow-checkout-avatarImages "
              />

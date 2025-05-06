@@ -251,8 +251,8 @@ export default function HeaderMenu({ cart }) {
                   <li><Link to="/">HOME</Link></li>
                   <li><Link to="/bestdeal">BEST DEAL</Link></li>
                   <li><Link to="/tyres">TYRES</Link></li>
-                  <li><Link to="/forcar">FOR CAR</Link></li>
-                  <li><Link to="/forbike">FOR BIKE</Link></li>
+                  <li><Link to="/forcar">CAR</Link></li>
+                  <li><Link to="/forbike">BIKE</Link></li>
 
                   <li
                     style={{ position: 'relative' }}
@@ -275,15 +275,26 @@ export default function HeaderMenu({ cart }) {
                       }}
                     >
                       <li style={{ padding: '10px 15px' }}>
-                        <Link to="/forTruck" style={{ textDecoration: 'none', color: 'black' }}>FOR TRUCK</Link>
+                        <Link to="/forTruck" style={{ textDecoration: 'none', color: 'black' }}>TRUCK</Link>
                       </li>
                       <li style={{ padding: '10px 15px' }}>
-                        <Link to="/forTractor" style={{ textDecoration: 'none', color: 'black' }}>FOR TRACTOR</Link>
+                        <Link to="/forTractor" style={{ textDecoration: 'none', color: 'black' }}>TRACTOR</Link>
                       </li>
+
+                      <li style={{ padding: '10px 15px' }}>
+                        <Link to="/accessories" style={{ textDecoration: 'none', color: 'black' }}>ACCESSORIES</Link>
+                      </li>
+                     
                     </ul>
                   </li>
 
-                  <li><Link to="/batteries">BATTERIES</Link></li>
+                  <li><Link to="/batteries">BATTERIES</Link></li> 
+                  <li><Link to="/alloywheel">ALLOY WHEEL</Link></li>
+                
+
+
+                 
+
                 </ul>
 
                 <div className="userMenu">

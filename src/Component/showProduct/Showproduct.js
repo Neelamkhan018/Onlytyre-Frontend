@@ -280,7 +280,9 @@ export default function Showproduct() {
                         <span>New</span>
                       </div>
                     )}
-                    <img src={`${url.nodeapipath}/uploads/${tyre.avatarImages}`} alt={tyre.title} className="tyre-image" />
+                    {/* <img src={`${url.nodeapipath}/uploads/${tyre.avatarImages}`} alt={tyre.title} className="tyre-image" /> */}
+                <img src={`https://tyres.blr1.digitaloceanspaces.com/${tyre.avatarImages}`} alt={tyre.title} className='tyre-image' />
+
 
               {/* Render icon based on tyreType */}
               <div className="tyre-type-icon">

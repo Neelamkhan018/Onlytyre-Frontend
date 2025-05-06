@@ -743,20 +743,12 @@ const ProductDetails = ({ addToCart  }) => {
   const [pincode, setPincode] = useState('');
   const [leastTime, setLeastTime] = useState('');
   const [addresses, setAddresses] = useState([]);
-  const [bikeBrandName, setBikeBrandName] = useState('');
-  const [bikeModelName, setBikeModelName] = useState('');
-
-
-
-  // const [selectedImage, setSelectedImage] = useState(tyre?.avatarImages || "");
-
-  // const thumbnailImages = [tyre?.thumb1Images, tyre?.thumb2Images, tyre?.thumb3Images, tyre?.thumb4Images].filter(img => img);
-
-
-
-
-
-  const [selectedImage, setSelectedImage] = useState(tyre?.avatarImages || ""); // Avatar is default
+ 
+const [batteryBrandName, setBatteryBrandName] = useState('');
+const [batteryModelName, setBatteryModelName] = useState('');
+const [alloyWheelBrandName, setAlloyWheelBrandName] = useState('');
+const [alloyWheelModelName, setAlloyWheelModelName] = useState('');
+const [selectedImage, setSelectedImage] = useState(tyre?.avatarImages || ""); // Avatar is default
 
   // Collect valid thumbnails
   const thumbnailImages = [
@@ -774,19 +766,36 @@ const ProductDetails = ({ addToCart  }) => {
     window.scrollTo(0, 0);
   }, [slug, tyreType]);
 
-  
+
   useEffect(() => {
-    if (tyre?.bikeBrand) {
-      fetch(`${url.nodeapipath}/get-bikebrand/${tyre.bikeBrand}`)
-        .then((res) => res.json())
-        .then((data) => setBikeBrandName(data.name));
-    }
+    const fetchNames = async () => {
+      if (tyre) {
+        if (tyre.batteryBrand) {
+          const response = await fetch(`${url.nodeapipath}/get-batterybrand/${tyre.BatteryBrand}`);
+          const data = await response.json();
+          setBatteryBrandName(data.name);
+        }
+        if (tyre.BatteryModel) {
+          const response = await fetch(`${url.nodeapipath}/get-batterymodel/${tyre.BatteryModel}`);
+          const data = await response.json();
+          setBatteryModelName(data.name);
+        }
   
-    if (tyre?.bikeModel) {
-      fetch(`${url.nodeapipath}/get-bikemodel/${tyre.bikeModel}`)
-        .then((res) => res.json())
-        .then((data) => setBikeModelName(data.name));
-    }
+        if (tyre.alloywheelBrand) {
+          const response = await fetch(`${url.nodeapipath}/get-alloybrand/${tyre.alloywheelBrand}`);
+          const data = await response.json();
+          setAlloyWheelBrandName(data.name);
+        }
+        if (tyre.alloywheelModel) {
+          const response = await fetch(`${url.nodeapipath}/get-AlloyWheelmodel/${tyre.alloywheelModel}`);
+          const data = await response.json();
+          setAlloyWheelModelName(data.name);
+        }
+  
+      }
+    };
+  
+    fetchNames();
   }, [tyre]);
 
 
@@ -868,6 +877,9 @@ useEffect(() => {
   saveDeliveryOption();
 }, [tyre, value, leastTime]);
 
+
+
+
   useEffect(() => {
     setLoading(true);  // Start loading
     
@@ -894,6 +906,7 @@ useEffect(() => {
         setLoading(false);  // Stop loading
       });
   }, [slug, tyreType]);  // Dependency array to re-fetch if slug or tyreType changes
+
 
 
 
@@ -989,34 +1002,54 @@ const handleDecrement = () => {
       >
         {/* First Slide: Show Selected Image if Available, Otherwise Show Avatar Image */}
         <SwiperSlide>
-          <img
+          {/* <img
             src={`${url.nodeapipath}/uploads/${
               selectedImage ? selectedImage : tyre?.avatarImages
             }`}
             alt="Main Image"
             className="main-image"
-          />
+          /> */}
+
+
+          <img
+    src={`https://tyres.blr1.digitaloceanspaces.com/${
+      selectedImage ? selectedImage : tyre?.avatarImages
+    }`}
+    alt="Main Image"
+    className="main-image"
+  />
         </SwiperSlide>
 
         {/* Second Slide: Always Show Avatar Image (If a Selection is Made) */}
         {thumbnailImages.length > 1 && (
           <SwiperSlide>
-            <img
+            {/* <img
               src={`${url.nodeapipath}/uploads/${thumbnailImages[1]}`}
               alt="Second Thumbnail"
               className="thumb2-image"
-            />
+            /> */}
+
+<img
+      src={`https://tyres.blr1.digitaloceanspaces.com/${thumbnailImages[1]}`}
+      alt="Second Thumbnail"
+      className="thumb2-image"
+    />
           </SwiperSlide>
         )}
 
         {/* Third Slide: Always Show Third Thumbnail (Thumb 3) If Available */}
         {thumbnailImages.length > 2 && (
           <SwiperSlide>
-            <img
+            {/* <img
               src={`${url.nodeapipath}/uploads/${thumbnailImages[2]}`}
               alt="Third Thumbnail"
               className="thumb3-image"
-            />
+            /> */}
+<img
+      src={`https://tyres.blr1.digitaloceanspaces.com/${thumbnailImages[2]}`}
+      alt="Third Thumbnail"
+      className="thumb3-image"
+    />
           </SwiperSlide>
         )}
 
@@ -1024,11 +1057,16 @@ const handleDecrement = () => {
  {/* Fourth Slide: Always Show Fourth Thumbnail (Thumb 4) If Available */}
  {thumbnailImages.length > 3 && (
           <SwiperSlide>
-            <img
+            {/* <img
               src={`${url.nodeapipath}/uploads/${thumbnailImages[3]}`}
               alt="Fourth Thumbnail"
               className="thumb4-image"
-            />
+            /> */}
+            <img
+      src={`https://tyres.blr1.digitaloceanspaces.com/${thumbnailImages[3]}`}
+      alt="Fourth Thumbnail"
+      className="thumb4-image"
+    />
           </SwiperSlide>
         )}
       </Swiper>
@@ -1048,11 +1086,16 @@ const handleDecrement = () => {
       >
         {thumbnailImages.map((image, index) => (
           <SwiperSlide key={`thumb-${index}`} onClick={() => setSelectedImage(image)}>
-            <img
+            {/* <img
               src={`${url.nodeapipath}/uploads/${image}`}
               alt={`Thumbnail ${index + 1}`}
               className="thumb-image"
-            />
+            /> */}
+             <img
+        src={`https://tyres.blr1.digitaloceanspaces.com/${image}`}
+        alt={`Thumbnail ${index + 1}`}
+        className="thumb-image"
+      />
           </SwiperSlide>
         ))}
       </Swiper>
@@ -1243,35 +1286,6 @@ const handleDecrement = () => {
 </div>
 
 
-
-{/* <div className="compatibleVehicle | mt-4">
-                  <h3>Compatible Vehicles</h3>
-                  {tyre ? (
-                    <ul>
-                      {tyre.tyreType === 'car' && (
-                        <>
-                          <li>{tyre.carbrand}</li>
-                          <li>{tyre.carModel}</li>
-                        </>
-                      )}
-                      {tyre.tyreType === 'bike' && (
-                        <>
-                          <li>{bikeBrandName || 'Loading...'}</li>
-                          <li>{bikeModelName || 'Loading...'}</li>
-                        </>
-                      )}
-                      {tyre.tyreType === 'truck' && (
-                        <>
-                          <li>{tyre.truckBrand}</li>
-                          <li>{tyre.truckModel}</li>
-                        </>
-                      )}
-                    </ul>
-                  ) : (
-                    <p>No tyres found</p>
-                  )}
-                </div> */}
-
 <div className="compatibleVehicle | mt-4">
   <h3>Compatible Vehicles</h3>
   {tyre ? (
@@ -1294,10 +1308,28 @@ const handleDecrement = () => {
           <li>{tyre.truckModel}</li>
         </>
       )}
-      {tyre.tyreType === 'tractor' && ( // Add this block for tractors
+      {tyre.tyreType === 'tractor' && (
         <>
           <li>{tyre.tractorBrand}</li>
           <li>{tyre.tractorModel}</li>
+        </>
+      )}
+        {tyre.tyreType === 'battery' && (
+        <>
+          <li>{batteryBrandName}</li>
+          <li>{batteryModelName}</li>
+        </>
+      )}
+      {tyre.tyreType === 'alloywheel' && (
+        <>
+          <li>{alloyWheelBrandName}</li>
+          <li>{alloyWheelModelName}</li>
+        </>
+      )}
+      {tyre.tyreType === 'accessories' && (
+        <>
+          <li>{tyre.accessoryBrand}</li>
+          <li>{tyre.accessoryModel}</li>
         </>
       )}
     </ul>
@@ -1306,43 +1338,127 @@ const handleDecrement = () => {
   )}
 </div>
 
- <div className={`contentDetails | mt-4`}>
+
+  <div className={`contentDetails | mt-4`}>
   {tyre ? (
     <ul>
-      <li>
-        <div className="title">Width</div>
-        <div className="text">{tyre.width} CM</div>
-      </li>
-      <li>
-        <div className="title">Height</div>
-        <div className="text">{tyre.height} CM</div>
-      </li>
-      <li>
-        <div className="title">Customs</div>
-        <div className="text">{tyre.customs} CM</div>
-      </li>
-      <li>
+
+
+{!tyre.accessoryType && (
+  <li>
+    <div className="title">
+      {tyre.batteryType
+        ? "Battery Width"
+        : tyre.alloywheelType
+        ? "Wheel Size"
+        : "Width"}
+    </div>
+    <div className="text">
+      {tyre.batteryType
+        ? `${tyre.batteryweight}`
+        : tyre.alloywheelType
+        ? tyre.WheelSize
+        : `${tyre.width} CM`}
+    </div>
+  </li>
+)}
+
+
+{!tyre.accessoryType && (
+  <li>
+    <div className="title">
+      {tyre.batteryType
+        ? "Battery Height"
+        : tyre.alloywheelType
+        ? "Holes"
+        : "Height"}
+    </div>
+    <div className="text">
+      {tyre.batteryType
+        ? `${tyre.batteryheight}`
+        : tyre.alloywheelType
+        ? tyre.Holes
+        : `${tyre.height} CM`}
+    </div>
+  </li>
+)}
+
+
+{!tyre.accessoryType && (
+  <li>
+    <div className="title">
+      {tyre.batteryType
+        ? "Battery Capacity"
+        : tyre.alloywheelType
+        ? "Color"
+        : "Customs"}
+    </div>
+    <div className="text">
+      {tyre.batteryType
+        ? tyre.capacity
+        : tyre.alloywheelType
+        ? tyre.Color
+        : `${tyre.customs} CM`}
+    </div>
+  </li>
+)}
+
+{!tyre.accessoryType && (
+  <li>
+    <div className="title">
+      {tyre.batteryType ? "Voltage" : "Seasons"}
+    </div>
+    <div className="text">
+      {tyre.batteryType ? `${tyre.voltage}` : tyre.seasons}
+    </div>
+  </li>
+)}
+
+{!tyre.accessoryType && (
+  <li>
+    <div className="title">
+      {tyre.batteryType
+        ? "Battery Type"
+        : tyre.alloywheelType
+        ? "PCD"
+        : "Load Capacity"}
+    </div>
+    <div className="text">
+      {tyre.batteryType
+        ? tyre.batteryType
+        : tyre.alloywheelType
+        ? tyre.PCD
+        : tyre.loadCapacity}
+    </div>
+  </li>
+)}
+
+
+
+    <li>
         <div className="title">Manufacturer’s warranty</div>
         <div className="text">{tyre.warranty} </div>
-      </li>
-      <li>
-        <div className="title">Seasons</div>
-        <div className="text">{tyre.seasons}</div>
-      </li>
-      <li>
-        <div className="title">Material</div>
-        <div className="text">{tyre.material}</div>
-      </li>
-      
-      <li>
-        <div className="title">Speed Rating</div>
-        <div className="text">{tyre.speedRating}</div>
-      </li>
+    </li>
+  
 
-      <li>
-        <div className="title">Load Capacity</div>
-        <div className="text">{tyre.loadCapacity}</div>
-      </li>
+<li>
+  <div className="title">
+    {(tyre.batteryType || tyre.alloywheelType || tyre.accessoryType) ? "Manufacturing Month" : "Material"}
+  </div>
+  <div className="text">
+    {(tyre.batteryType || tyre.alloywheelType || tyre.accessoryType) ? tyre.manufactureMonth : tyre.material}
+  </div>
+</li>
+
+
+<li>
+  <div className="title">
+    {(tyre.batteryType || tyre.alloywheelType || tyre.accessoryType) ? "Manufacturing Year" : "Speed Rating"}
+  </div>
+  <div className="text">
+    {(tyre.batteryType || tyre.alloywheelType || tyre.accessoryType) ? tyre.manufactureYear : tyre.speedRating}
+  </div>
+</li>
 
 
 
@@ -1350,7 +1466,9 @@ const handleDecrement = () => {
   ) : (
     <p>No tyres found</p>
   )}
-</div> 
+</div>  
+
+
 
               </div>
             </div>

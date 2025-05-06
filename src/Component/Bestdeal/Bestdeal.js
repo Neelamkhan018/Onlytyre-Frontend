@@ -417,24 +417,52 @@ const BestDeal = () => {
     }
   };
 
-  useEffect(() => {
-    const fetchTyres = async () => {
-      setLoading(true);
-      try {
-        const response = await fetch(`${url.nodeapipath}/get-bestdeal`);
-        const data = await response.json();
-        if (data.success) {
-          // Combine Car, Bike, Truck & Tractor Deals
-          setBestDeals([...data.carDeals, ...data.bikeDeals, ...data.truckDeals, ...data.tractorDeals]);
-        }
-      } catch (error) {
-        console.error("Error fetching tyres:", error);
-      } finally {
-        setLoading(false);
+  // useEffect(() => {
+  //   const fetchTyres = async () => {
+  //     setLoading(true);
+  //     try {
+  //       const response = await fetch(`${url.nodeapipath}/get-bestdeal`);
+  //       const data = await response.json();
+  //       if (data.success) {
+  //         // Combine Car, Bike, Truck & Tractor Deals
+  //         setBestDeals([...data.carDeals, ...data.bikeDeals, ...data.truckDeals, ...data.tractorDeals]);
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching tyres:", error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+  //   fetchTyres();
+  // }, []);
+
+
+useEffect(() => {
+  const fetchTyres = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(`${url.nodeapipath}/get-bestdeal`);
+      const data = await response.json();
+      if (data.success) {
+        // Combine Car, Bike, Truck, Tractor, Battery, Alloy Wheel & Accessory Deals
+        setBestDeals([
+          ...data.carDeals,
+          ...data.bikeDeals,
+          ...data.truckDeals,
+          ...data.tractorDeals,
+          ...data.batteryDeals, // Include battery deals
+          ...data.alloyWheelDeals, // Include alloy wheel deals
+          ...data.accessoryDeals // Include accessory deals
+        ]);
       }
-    };
-    fetchTyres();
-  }, []);
+    } catch (error) {
+      console.error("Error fetching tyres:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  fetchTyres();
+}, []);
 
   useEffect(() => {
     const fetchBrands = async () => {
@@ -654,7 +682,9 @@ const BestDeal = () => {
                               </li>
                             )}
                           </ul>
-                          <img src={`${url.nodeapipath}/uploads/${tyre.avatarImages}`} alt={tyre.title} />
+                          {/* <img src={`${url.nodeapipath}/uploads/${tyre.avatarImages}`} alt={tyre.title} /> */}
+                      <img src={`https://tyres.blr1.digitaloceanspaces.com/${tyre.avatarImages}`} alt={tyre.title} />
+
                         </div>
                         <div className="details">
                           <div className="brand">{tyre.brand}</div>

@@ -170,7 +170,9 @@ const Slidercart = ({ cart, setCart }) => {
               cartItems.map(item => (
                 <li key={item._id}>
                   <div className="photo">
-                    <img src={`${url.nodeapipath}/uploads/${item.avatarImages}`} alt={item.title} />
+                    {/* <img src={`${url.nodeapipath}/uploads/${item.avatarImages}`} alt={item.title} /> */}
+                <img src={`https://tyres.blr1.digitaloceanspaces.com/${item.avatarImages}`} alt={item.avatarImages} />
+
                   </div>
                   <div className="details">
                     <div className="brand">{item.brand}</div>

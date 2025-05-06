@@ -2083,7 +2083,14 @@ const handleTyreTypeChange = (type) => {
 
 
 
-                <img src={`${url.nodeapipath}/uploads/${tyre.avatarImages}`}  alt={tyre.avatarImages}  />
+                {/* <img src={`${url.nodeapipath}/uploads/${tyre.avatarImages}`}  alt={tyre.avatarImages}  /> */}
+
+                <img src={`https://tyres.blr1.digitaloceanspaces.com/${tyre.avatarImages}`} alt={tyre.avatarImages} />
+
+                
+
+                
+
 
                 
                 
@@ -2091,7 +2098,15 @@ const handleTyreTypeChange = (type) => {
               <div className="details">
                 <div className="brand">{tyre.tyreBrand}</div>
       
-                <h2>{tyre.title}</h2>
+                <h2 style={{
+                  display:"-webkit-box",
+                  WebkitLineClamp : 2,
+                  WebkitBoxOrient:"vertical",
+                  overflow:"hidden",
+                  textOverflow:"ellipsis",
+                  maxWidth:"100%"
+                }} 
+                >{tyre.title}</h2>
                 <div className="price">
                   <div className="new">₹{tyre.Salesprice}</div>
                   <div className="old">₹{tyre.price}</div>

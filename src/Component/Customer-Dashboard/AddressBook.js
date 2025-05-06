@@ -12,7 +12,7 @@ const Addresses = () => {
   return (
 
     <>
-    <HeaderMenu/>
+   
     
       <section className="titleBanner">
         <div className="container">
@@ -35,12 +35,12 @@ const Addresses = () => {
                 <div className="col-md-3">
                     <h3 className="ff-primary fs-22 fw-semibold border-bottom pb-2">MY ACCOUNT</h3>
                     <ul className="leftMenu">
-                        <li><a href="my-account">Dashboard</a></li>
-                        <li><a href="my-account-orders">Orders</a></li>
+                        <li><a href="/my-account">Dashboard</a></li>
+                        <li><a href="/my-orders">Orders</a></li>
                         <li><a href="my-account-downloads">Downloads</a></li>
-                        <li className="active"><a href="my-account-address">Addresses</a></li>
-                        <li><a href="my-account-details">Account details</a></li>
-                        <li><a href="my-account-wishlist">Wishlist</a></li>
+                        <li className="active"><a href="/address-Book">Addresses</a></li>
+                        <li><a href="/Acc-details">Account details</a></li>
+                        <li><a href="/Wishlist">Wishlist</a></li>
                         <li><a href="">Logout</a></li>
                     </ul>
                 </div>

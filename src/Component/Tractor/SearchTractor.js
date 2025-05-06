@@ -91,7 +91,9 @@ export default function SearchTractor() {
                                                                     </li>
                                                                 )}
                                                             </ul>
-                                                            <img src={`${url.nodeapipath}/uploads/${tractor.avatarImages}`} alt={tractor.title} />
+                                                            {/* <img src={`${url.nodeapipath}/uploads/${tractor.avatarImages}`} alt={tractor.title} /> */}
+                                                    <img src={`https://tyres.blr1.digitaloceanspaces.com/${tractor.avatarImages}`} alt={tractor.title} />
+
                                                         </div>
                                                         <div className="details">
                                                             <div className="brand">{tractor.tyreBrand.join(', ')}</div>

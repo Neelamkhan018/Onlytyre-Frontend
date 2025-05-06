@@ -568,7 +568,9 @@ export default function Searchcar() {
 )}
 
                                     </ul>
-                                    <img src={`${url.nodeapipath}/uploads/${tyre.avatarImages}`} alt={tyre.title} />
+                                    {/* <img src={`${url.nodeapipath}/uploads/${tyre.avatarImages}`} alt={tyre.title} /> */}
+                      <img src={`https://tyres.blr1.digitaloceanspaces.com/${tyre.avatarImages}`} alt={tyre.title} />
+
                                 </div>
                                 <div className="details">
                                     <div className="brand">{tyre.tyreBrand.join(', ')}</div>
