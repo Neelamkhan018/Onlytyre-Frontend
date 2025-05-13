@@ -179,74 +179,122 @@ const FrontendLogin = ({ onLoginSuccess }) => {
   const [otpError, setOtpError] = useState("");
   const [sentOtp, setSentOtp] = useState(""); // Store the OTP from backend response
 
+
   const handleSendOtp = async (event) => {
-    event.preventDefault();
-    setEmailOrMobileError(""); // Reset error
+  event.preventDefault();
+  setEmailOrMobileError("");
 
-    if (!emailOrMobile) {
-      setEmailOrMobileError("Email or Mobile number is required");
-      return;
+  if (!emailOrMobile) {
+    setEmailOrMobileError("Email or Mobile number is required");
+    return;
+  }
+
+  try {
+    const response = await fetch(`${url.nodeapipath}/front-login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ mobilenumber: emailOrMobile }),
+    });
+
+    const result = await response.json();
+    console.log("OTP Send Response:", result); // ✅ Check if _id is present
+
+    if (response.ok) {
+      setSentOtp(result.otp);
+      setVerificationMessage(`Your verification code has been sent to ${emailOrMobile}`);
+      setIsOtpSent(true);
+
+      // Optionally store _id here too
+      localStorage.setItem('userId', result._id);
+    } else {
+      setVerificationMessage(result.message);
     }
+  } catch (error) {
+    console.error(error);
+    setVerificationMessage("Something went wrong. Please try again.");
+  }
+};
 
-    try {
-      const response = await fetch(`${url.nodeapipath}/front-login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ mobilenumber: emailOrMobile }),
-      });
 
-      const result = await response.json();
+  // const handleVerifyOtp = async (event) => {
+  //   event.preventDefault();
+  //   setOtpError(""); // Reset error
 
-      if (response.ok) {
-        setSentOtp(result.otp); // Store OTP for display
-        setVerificationMessage(`Your verification code has been sent to ${emailOrMobile}`);
-        setIsOtpSent(true);
-      } else {
-        setVerificationMessage(result.message);
-      }
-    } catch (error) {
-      console.error(error);
-      setVerificationMessage("Something went wrong. Please try again.");
+  //   if (!otp) {
+  //     setOtpError("OTP is required");
+  //     return;
+  //   }
+
+  //   try {
+  //     const response = await fetch(`${url.nodeapipath}/front-login`, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         mobilenumber: emailOrMobile,
+  //         otp: otp,
+  //       }),
+  //     });
+
+  //     const result = await response.json();
+
+  //     if (response.ok) {
+  //       setVerificationMessage("OTP verified successfully. You are logged in.");
+  //       localStorage.setItem('loggedInUser', emailOrMobile); // ✅ ADDED this line
+  //       onLoginSuccess(emailOrMobile);
+  //     } else {
+  //       setVerificationMessage(result.message);
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //     setVerificationMessage("Something went wrong. Please try again.");
+  //   }
+  // };
+
+
+
+
+const handleVerifyOtp = async (event) => {
+  event.preventDefault();
+  setOtpError(""); // Reset error
+
+  if (!otp) {
+    setOtpError("OTP is required");
+    return;
+  }
+
+  try {
+    const response = await fetch(`${url.nodeapipath}/front-login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        mobilenumber: emailOrMobile,
+        otp: otp,
+      }),
+    });
+
+    const result = await response.json();
+
+    if (response.ok) {
+      setVerificationMessage("OTP verified successfully. You are logged in.");
+      localStorage.setItem('loggedInUser', emailOrMobile); // Store login
+      localStorage.setItem('userId', result._id); // ✅ Store user ID here
+      onLoginSuccess(emailOrMobile);
+    } else {
+      setVerificationMessage(result.message);
     }
-  };
+  } catch (error) {
+    console.error(error);
+    setVerificationMessage("Something went wrong. Please try again.");
+  }
+};
 
-  const handleVerifyOtp = async (event) => {
-    event.preventDefault();
-    setOtpError(""); // Reset error
 
-    if (!otp) {
-      setOtpError("OTP is required");
-      return;
-    }
-
-    try {
-      const response = await fetch(`${url.nodeapipath}/front-login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          mobilenumber: emailOrMobile,
-          otp: otp,
-        }),
-      });
-
-      const result = await response.json();
-
-      if (response.ok) {
-        setVerificationMessage("OTP verified successfully. You are logged in.");
-        localStorage.setItem('loggedInUser', emailOrMobile); // ✅ ADDED this line
-        onLoginSuccess(emailOrMobile);
-      } else {
-        setVerificationMessage(result.message);
-      }
-    } catch (error) {
-      console.error(error);
-      setVerificationMessage("Something went wrong. Please try again.");
-    }
-  };
 
   return (
     <div className="offcanvas offcanvas-end rightboxCanvas" tabIndex="-1" id="loginBox" aria-labelledby="loginBoxLabel">

@@ -760,6 +760,10 @@ const [selectedImage, setSelectedImage] = useState(tyre?.avatarImages || ""); //
 
 
 
+
+  const [isInWishlist, setIsInWishlist] = useState(false); // Track if item is in wishlist
+
+
   
    // Scroll to top when component mounts or slug/tyreType changes
    useEffect(() => {
@@ -969,6 +973,91 @@ const handleDecrement = () => {
 
 
 
+
+  // const handleAddToWishlist = () => {
+  //   const storedWishlist = localStorage.getItem('wishlist');
+  //   let wishlist = storedWishlist ? JSON.parse(storedWishlist) : [];
+
+  //   const isAlreadyInWishlist = wishlist.some(item => item._id === tyre._id);
+  //   if (!isAlreadyInWishlist) {
+  //     wishlist.push(tyre);
+  //     localStorage.setItem('wishlist', JSON.stringify(wishlist));
+      
+  //     // Dispatch custom event to update the wishlist
+  //     window.dispatchEvent(new Event('wishlistUpdated'));
+
+  //     setIsInWishlist(true);  // Mark as in wishlist
+  //   } else {
+  //     // Optionally show a message or toast
+  //     alert('Already in wishlist.');
+  //   }
+  // };
+
+
+
+
+// // Check if the item is in wishlist when the component mounts
+// useEffect(() => {
+//   if (!tyre) return; // Safely check if tyre is null or undefined
+
+//   const storedWishlist = localStorage.getItem('wishlist');
+//   const wishlist = storedWishlist ? JSON.parse(storedWishlist) : [];
+//   const isAlreadyInWishlist = wishlist.some(item => item._id === tyre._id);
+//   setIsInWishlist(isAlreadyInWishlist);
+// }, [tyre]); // Re-run this effect when the tyre prop changes
+
+
+useEffect(() => {
+  if (!tyre) return;
+
+  const user = localStorage.getItem('loggedInUser');
+  if (!user) return;
+
+  const key = `wishlist_${user}`;
+  const storedWishlist = localStorage.getItem(key);
+  const wishlist = storedWishlist ? JSON.parse(storedWishlist) : [];
+
+  const isAlreadyInWishlist = wishlist.some(item => item._id === tyre._id);
+  setIsInWishlist(isAlreadyInWishlist);
+}, [tyre]);
+
+
+
+
+
+const handleAddToWishlist = () => {
+  if (!tyre) return;
+
+  const user = localStorage.getItem('loggedInUser');
+  if (!user) return;
+
+  const key = `wishlist_${user}`;
+  const storedWishlist = localStorage.getItem(key);
+  let wishlist = storedWishlist ? JSON.parse(storedWishlist) : [];
+
+  const isAlreadyInWishlist = wishlist.some(item => item._id === tyre._id);
+  if (!isAlreadyInWishlist) {
+    wishlist.push(tyre);
+    localStorage.setItem(key, JSON.stringify(wishlist));
+
+    window.dispatchEvent(new Event('wishlistUpdated'));
+    setIsInWishlist(true);
+  } else {
+    alert('Already in wishlist.');
+  }
+};
+
+
+
+
+  const buttonStyle = {
+    background: 'none',
+    border: 'none',
+    cursor: 'pointer',
+  };
+
+
+
   return (
     <>
 
@@ -988,9 +1077,13 @@ const handleDecrement = () => {
 </section>
 
 
+
+
+
 <section className="productPage | padding-block-900">
   <div className="container">
     <div className="row row-gap-4">
+
 <div className="col-md-6 slider">
       {/* Main Image Swiper */}
       <Swiper
@@ -1002,15 +1095,6 @@ const handleDecrement = () => {
       >
         {/* First Slide: Show Selected Image if Available, Otherwise Show Avatar Image */}
         <SwiperSlide>
-          {/* <img
-            src={`${url.nodeapipath}/uploads/${
-              selectedImage ? selectedImage : tyre?.avatarImages
-            }`}
-            alt="Main Image"
-            className="main-image"
-          /> */}
-
-
           <img
     src={`https://tyres.blr1.digitaloceanspaces.com/${
       selectedImage ? selectedImage : tyre?.avatarImages
@@ -1022,13 +1106,7 @@ const handleDecrement = () => {
 
         {/* Second Slide: Always Show Avatar Image (If a Selection is Made) */}
         {thumbnailImages.length > 1 && (
-          <SwiperSlide>
-            {/* <img
-              src={`${url.nodeapipath}/uploads/${thumbnailImages[1]}`}
-              alt="Second Thumbnail"
-              className="thumb2-image"
-            /> */}
-
+          <SwiperSlide>           
 <img
       src={`https://tyres.blr1.digitaloceanspaces.com/${thumbnailImages[1]}`}
       alt="Second Thumbnail"
@@ -1040,11 +1118,6 @@ const handleDecrement = () => {
         {/* Third Slide: Always Show Third Thumbnail (Thumb 3) If Available */}
         {thumbnailImages.length > 2 && (
           <SwiperSlide>
-            {/* <img
-              src={`${url.nodeapipath}/uploads/${thumbnailImages[2]}`}
-              alt="Third Thumbnail"
-              className="thumb3-image"
-            /> */}
 <img
       src={`https://tyres.blr1.digitaloceanspaces.com/${thumbnailImages[2]}`}
       alt="Third Thumbnail"
@@ -1057,11 +1130,6 @@ const handleDecrement = () => {
  {/* Fourth Slide: Always Show Fourth Thumbnail (Thumb 4) If Available */}
  {thumbnailImages.length > 3 && (
           <SwiperSlide>
-            {/* <img
-              src={`${url.nodeapipath}/uploads/${thumbnailImages[3]}`}
-              alt="Fourth Thumbnail"
-              className="thumb4-image"
-            /> */}
             <img
       src={`https://tyres.blr1.digitaloceanspaces.com/${thumbnailImages[3]}`}
       alt="Fourth Thumbnail"
@@ -1086,11 +1154,6 @@ const handleDecrement = () => {
       >
         {thumbnailImages.map((image, index) => (
           <SwiperSlide key={`thumb-${index}`} onClick={() => setSelectedImage(image)}>
-            {/* <img
-              src={`${url.nodeapipath}/uploads/${image}`}
-              alt={`Thumbnail ${index + 1}`}
-              className="thumb-image"
-            /> */}
              <img
         src={`https://tyres.blr1.digitaloceanspaces.com/${image}`}
         alt={`Thumbnail ${index + 1}`}
@@ -1107,6 +1170,7 @@ const handleDecrement = () => {
 <div className="col-md-6">
     <div className="details-wrapper">
         <div className="head">
+
   {/* Brand Logos */}
   <div className="logo">
     {tyre && tyre.tyreBrand && tyre.tyreBrand.map((brand, index) => (
@@ -1133,6 +1197,38 @@ const handleDecrement = () => {
     {tyre && tyre.Salesprice && <div className="new">₹{tyre.Salesprice}</div>}
     <div className="old">₹{tyre ? tyre.price : "Default Price"}</div>
   </div>
+
+
+ <button onClick={handleAddToWishlist} style={{ 
+  display: 'flex', 
+  alignItems: 'center', 
+  gap: '8px', 
+  background: 'none', 
+  border: 'none', 
+  cursor: 'pointer', 
+  padding: '0',
+  fontSize: '16px',
+  color: isInWishlist ? 'red' : '#333'
+}}>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill={isInWishlist ? 'red' : 'none'}
+    stroke={isInWishlist ? 'red' : '#999'}
+  >
+    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 
+             2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09
+             C13.09 3.81 14.76 3 16.5 3 
+             19.58 3 22 5.42 22 8.5
+             c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+  </svg>
+  <span>{isInWishlist ? 'In Wishlist' : 'Add to Wishlist'}</span>
+</button>
+
+<br/>
+
 
   {/* Description */}
   <p>

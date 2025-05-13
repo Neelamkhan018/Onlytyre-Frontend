@@ -1,14 +1,37 @@
 
 import { Link } from "react-router-dom";
-import React from "react";
-import HeaderMenu from "../Menu/HeaderMenu";
+import React, { useEffect, useState } from "react";
 
-
-import url from "../../env.js"
 
 
 
 const Addresses = () => {
+
+    const [loggedInUser, setLoggedInUser] = useState("");
+  
+
+
+
+useEffect(() => {
+  const storedUser = localStorage.getItem('loggedInUser');
+  if (storedUser) {
+    setLoggedInUser(storedUser);
+  }
+}, []);
+
+
+
+
+   const handleLogout = () => {
+    setLoggedInUser (null);
+    localStorage.removeItem('loggedInUser');  // ✅ CORRECTED key
+  };
+
+
+
+
+
+
   return (
 
     <>
@@ -41,7 +64,7 @@ const Addresses = () => {
                         <li className="active"><a href="/address-Book">Addresses</a></li>
                         <li><a href="/Acc-details">Account details</a></li>
                         <li><a href="/Wishlist">Wishlist</a></li>
-                        <li><a href="">Logout</a></li>
+                        <li><a href="" onClick={handleLogout}>Logout</a></li>
                     </ul>
                 </div>
                 

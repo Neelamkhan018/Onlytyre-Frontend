@@ -182,7 +182,7 @@ export default function App() {
 
                     <Route path="/accessories" element={<Accessories/>} />
 
-                    <Route path="/accountorderview" element={<AccountOrderView/>} />
+                    <Route path="/accountorderview/:orderId" element={<AccountOrderView/>} />
 
 
 

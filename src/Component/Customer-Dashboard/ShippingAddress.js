@@ -9,6 +9,12 @@ import url from "../../env.js"
 
 
 const Shippingaddress = () => {
+
+
+  const userId = localStorage.getItem("userId"); // Mod
+
+
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -16,6 +22,7 @@ const Shippingaddress = () => {
     townOrCity: "",
     state: "",
     pincode: "",
+    userId: userId || "", // Include the userId in the form data
   });
 
   const [successMessage, setSuccessMessage] = useState("");
