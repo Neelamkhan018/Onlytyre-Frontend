@@ -641,8 +641,8 @@ useEffect(() => {
                       </button>
                       <ul className="dropdown-menu dropdown-menu-end">
                         <li><Link to="/my-account" className="dropdown-item">Edit Profile</Link></li>
-                        <li><Link to="#" className="dropdown-item">Subscription details</Link></li>
-                        <li><Link to="#" className="dropdown-item">Billing History</Link></li>
+                      {/* <li><Link to="#" className="dropdown-item">Subscription details</Link></li>
+                        <li><Link to="#" className="dropdown-item">Billing History</Link></li> */}
                         <li>
                           <Link to="#" className="dropdown-item" onClick={handleLogout}>
                             <img src="/assets/images/icons/svg/logout-2.svg" alt="Logout" /> Logout

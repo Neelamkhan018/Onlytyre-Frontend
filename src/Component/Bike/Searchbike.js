@@ -367,52 +367,69 @@ import url from "../../env.js"
 
 
 export default function SearchBike() {
-    const { bikeBrand, bikeModel, tyreBrand, season } = useParams(); // Capture URL parameters
-    const [sortedTyres, setSortedTyres] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [sortOption, setSortOption] = useState('menu_order'); // Default sorting option
+    // const { bikeBrand, bikeModel, tyreBrand, season } = useParams(); // Capture URL parameters
+    // const [sortedTyres, setSortedTyres] = useState([]);
+    // const [loading, setLoading] = useState(false);
+    // const [sortOption, setSortOption] = useState('menu_order'); // Default sorting option
 
-    useEffect(() => {
 
-        window.scrollTo(0, 0); // 👈 scroll to top when the component loads
-        
-        const fetchTyres = async () => {
-            setLoading(true);
-            try {
-                const queryParams = new URLSearchParams();
-                if (bikeBrand) queryParams.append("bikeBrand", bikeBrand);
-                if (bikeModel) queryParams.append("bikeModel", bikeModel);
-                if (tyreBrand) queryParams.append("tyreBrand", tyreBrand);
-                if (season) queryParams.append("season", season);
 
-                const response = await fetch(`${url.nodeapipath}/get-tyres?${queryParams.toString()}`);
-                const data = await response.json();
-                console.log("API Response:", data); // Log the response
+  const { bikeBrand, bikeModel, tyreBrand, season } = useParams();
+  const [sortedTyres, setSortedTyres] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-                // Filter tyres for 'bike' type only
-                const filteredTyres = data.filter(tyre => tyre.tyreType === "bike");
+  useEffect(() => {
+    window.scrollTo(0, 0);
 
-                // Apply additional filtering based on selected criteria
-                const finalFilteredTyres = filteredTyres.filter(tyre => {
-                    const matchesBrand = tyreBrand ? tyre.tyreBrand.includes(tyreBrand) : true;
-                    const matchesSeason = season && season !== "all" ? tyre.seasons === season : true;
-                    const matchesBikeBrand = bikeBrand ? tyre.bikeBrand.includes(bikeBrand) : true;
-                    const matchesBikeModel = bikeModel ? tyre.bikeModel.includes(bikeModel) : true;
+    const fetchTyres = async () => {
+      setLoading(true);
+      try {
+        const queryParams = new URLSearchParams();
+        if (bikeBrand) queryParams.append("bikeBrand", bikeBrand);
+        if (bikeModel) queryParams.append("bikeModel", bikeModel);
+        if (tyreBrand) queryParams.append("tyreBrand", tyreBrand);
+        if (season) queryParams.append("season", season);
 
-                    return matchesBrand && matchesSeason && matchesBikeBrand && matchesBikeModel;
-                });
+        const response = await fetch(
+          `${url.nodeapipath}/get-tyres?${queryParams.toString()}`
+        );
+        const data = await response.json();
+        console.log("API Response:", data);
 
-                setSortedTyres(finalFilteredTyres); // Update sorted tyres
-            } catch (error) {
-                console.error("Error fetching tyres:", error);
-            } finally {
-                setLoading(false);
-            }
+        // Filter for 'bike' tyres only
+        const filteredTyres = data.filter(
+          (tyre) => tyre.tyreType?.toLowerCase() === "bike"
+        );
+
+        // Helper for case-insensitive field match
+        const matchField = (field, value) => {
+          if (!field || !value) return false;
+          if (Array.isArray(field)) {
+            return field.some((item) => item.toLowerCase() === value.toLowerCase());
+          }
+          return field.toLowerCase() === value.toLowerCase();
         };
 
-        fetchTyres();
-    }, [bikeBrand, bikeModel, tyreBrand, season]); // Re-run when URL params change
+        // Final filtering
+        const finalFilteredTyres = filteredTyres.filter((tyre) => {
+          const matchesBrand = tyreBrand ? matchField(tyre.tyreBrand, tyreBrand) : true;
+          const matchesSeason = season && season !== "all" ? matchField(tyre.seasons, season) : true;
+          const matchesBikeBrand = bikeBrand ? matchField(tyre.bikeBrand, bikeBrand) : true;
+          const matchesBikeModel = bikeModel ? matchField(tyre.bikeModel, bikeModel) : true;
 
+          return matchesBrand && matchesSeason && matchesBikeBrand && matchesBikeModel;
+        });
+
+        setSortedTyres(finalFilteredTyres);
+      } catch (error) {
+        console.error("Error fetching tyres:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTyres();
+  }, [bikeBrand, bikeModel, tyreBrand, season]);
 
 
     return (

@@ -280,9 +280,9 @@ const Billingaddress = () => {
                 <li>
                   <Link to="/my-orders">Orders</Link>
                 </li>
-                <li>
+                {/* <li>
                   <Link to="my-account-downloads">Downloads</Link>
-                </li>
+                </li> */}
                 <li className="active">
                   <Link to="/address-Book">Addresses</Link>
                 </li>

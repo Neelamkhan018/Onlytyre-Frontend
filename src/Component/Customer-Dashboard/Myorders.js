@@ -198,7 +198,7 @@ useEffect(() => {
                    <ul className="leftMenu">
                         <li><a href="/my-account">Dashboard</a></li>
                        <li className="active"><a href="/my-orders">Orders</a></li>
-                      <li><a href="my-account-downloads">Downloads</a></li>
+                      {/* <li><a href="my-account-downloads">Downloads</a></li> */}
                         <li><a href="/address-Book">Addresses</a></li>
                       <li><a href="/Acc-details">Account details</a></li>
                        <li><a href="/Wishlist">Wishlist</a></li>

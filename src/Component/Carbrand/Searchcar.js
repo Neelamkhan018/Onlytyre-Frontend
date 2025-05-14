@@ -447,52 +447,66 @@ import url from "../../env.js"
 
 
 export default function Searchcar() {
-    const { carBrand, carModel, tyreBrand, season } = useParams();
-    const [sortedTyres, setSortedTyres] = useState([]);
-    const [loading, setLoading] = useState(false);
 
-   
+  const { carBrand, carModel, tyreBrand, season } = useParams();
+  const [sortedTyres, setSortedTyres] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
 
-        window.scrollTo(0, 0); // 👈 scroll to top when the component loads
+    const fetchTyres = async () => {
+      setLoading(true);
+      try {
+        const queryParams = new URLSearchParams();
+        if (carBrand) queryParams.append("carBrand", carBrand);
+        if (carModel) queryParams.append("carModel", carModel);
+        if (tyreBrand) queryParams.append("tyreBrand", tyreBrand);
+        if (season) queryParams.append("season", season);
 
-        const fetchTyres = async () => {
-            setLoading(true);
-            try {
-                const queryParams = new URLSearchParams();
-                if (carBrand) queryParams.append("carBrand", carBrand);
-                if (carModel) queryParams.append("carModel", carModel);
-                if (tyreBrand) queryParams.append("tyreBrand", tyreBrand);
-                if (season) queryParams.append("season", season);
+        const response = await fetch(
+          `${url.nodeapipath}/get-tyres?${queryParams.toString()}`
+        );
+        const data = await response.json();
+        console.log("API Response:", data);
 
-                const response = await fetch(`${url.nodeapipath}/get-tyres?${queryParams.toString()}`);
-                const data = await response.json();
-                console.log("API Response:", data); // Log the response
+        // Filter for 'car' tyres only
+        const filteredTyres = data.filter(
+          (tyre) => tyre.tyreType?.toLowerCase() === "car"
+        );
 
-                // Filter tyres for 'car' type only
-                const filteredTyres = data.filter(tyre => tyre.tyreType === "car");
-
-                // Apply additional filtering based on selected criteria
-                const finalFilteredTyres = filteredTyres.filter(tyre => {
-                    const matchesBrand = tyreBrand ? tyre.tyreBrand.includes(tyreBrand) : true;
-                    const matchesSeason = season && season !== "all" ? tyre.seasons === season : true;
-                    const matchesCarBrand = carBrand ? tyre.carbrand.includes(carBrand) : true;
-                    const matchesCarModel = carModel ? tyre.carModel.includes(carModel) : true;
-
-                    return matchesBrand && matchesSeason && matchesCarBrand && matchesCarModel;
-                });
-
-                setSortedTyres(finalFilteredTyres); // Update sorted tyres
-            } catch (error) {
-                console.error("Error fetching tyres:", error);
-            } finally {
-                setLoading(false);
+        // Final filtering (case-insensitive + supports string/array)
+        const finalFilteredTyres = filteredTyres.filter((tyre) => {
+          const matchString = (field, value) => {
+            if (!field || !value) return false;
+            if (Array.isArray(field)) {
+              return field.some((f) => f.toLowerCase() === value.toLowerCase());
             }
-        };
+            return field.toLowerCase() === value.toLowerCase();
+          };
 
-        fetchTyres();
-    }, [carBrand, carModel, tyreBrand, season]); // Re-run when URL params change
+          const matchesBrand = tyreBrand ? matchString(tyre.tyreBrand, tyreBrand) : true;
+          const matchesSeason = season && season !== "all" ? matchString(tyre.seasons, season) : true;
+          const matchesCarBrand = carBrand ? matchString(tyre.carbrand, carBrand) : true;
+          const matchesCarModel = carModel ? matchString(tyre.carModel, carModel) : true;
+
+          return matchesBrand && matchesSeason && matchesCarBrand && matchesCarModel;
+        });
+
+        setSortedTyres(finalFilteredTyres);
+      } catch (error) {
+        console.error("Error fetching tyres:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTyres();
+  }, [carBrand, carModel, tyreBrand, season]);
+
+
+
+
 
     return (
         <>

@@ -8,47 +8,73 @@ import url from "../../env.js"
 
 
 export default function SearchTractor() {
-    const { TractorBrand, TractorModel, tyreBrand, season } = useParams();
-    const [sortedTractors, setSortedTractors] = useState([]);
-    const [loading, setLoading] = useState(false);
+   
 
-    useEffect(() => {
-        window.scrollTo(0, 0); // 👈 scroll to top when the component loads
+  const { TractorBrand, TractorModel, tyreBrand, season } = useParams();
+  const [sortedTractors, setSortedTractors] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-        const fetchTractors = async () => {
-            setLoading(true);
-            try {
-                const queryParams = new URLSearchParams();
-                if (TractorBrand) queryParams.append("tractorBrand", TractorBrand);
-                if (TractorModel) queryParams.append("tractorModel", TractorModel);
-                if (tyreBrand) queryParams.append("tyreBrand", tyreBrand);
-                if (season) queryParams.append("season", season);
+  useEffect(() => {
+    window.scrollTo(0, 0); // Scroll to top on load
 
-                const response = await fetch(`${url.nodeapipath}/get-tyres?${queryParams.toString()}`);
-                const data = await response.json();
-                console.log("Tractor API Response:", data);
+    const fetchTractors = async () => {
+      setLoading(true);
+      try {
+        const queryParams = new URLSearchParams();
+        if (TractorBrand) queryParams.append("tractorBrand", TractorBrand);
+        if (TractorModel) queryParams.append("tractorModel", TractorModel);
+        if (tyreBrand) queryParams.append("tyreBrand", tyreBrand);
+        if (season) queryParams.append("season", season);
 
-                const filteredTractors = data.filter(tractor => tractor.tyreType === "tractor");
+        const response = await fetch(
+          `${url.nodeapipath}/get-tyres?${queryParams.toString()}`
+        );
+        const data = await response.json();
+        console.log("Tractor API Response:", data);
 
-                const finalFilteredTractors = filteredTractors.filter(tractor => {
-                    const matchesBrand = tyreBrand ? tractor.tyreBrand.includes(tyreBrand) : true;
-                    const matchesSeason = season && season !== "all" ? tractor.seasons === season : true;
-                    const matchesTractorBrand = TractorBrand ? tractor.tractorBrand.includes(TractorBrand) : true;
-                    const matchesTractorModel = TractorModel ? tractor.tractorModel.includes(TractorModel) : true;
+        // Filter tyres for 'tractor' type only
+        const filteredTractors = data.filter(
+          (tyre) => tyre.tyreType?.toLowerCase() === "tractor"
+        );
 
-                    return matchesBrand && matchesSeason && matchesTractorBrand && matchesTractorModel;
-                });
-
-                setSortedTractors(finalFilteredTractors);
-            } catch (error) {
-                console.error("Error fetching tractor tyres:", error);
-            } finally {
-                setLoading(false);
-            }
+        // Helper function for matching fields (supports string or array, case-insensitive)
+        const matchField = (field, value) => {
+          if (!field || !value) return false;
+          if (Array.isArray(field)) {
+            return field.some((item) => item.toLowerCase() === value.toLowerCase());
+          }
+          return field.toLowerCase() === value.toLowerCase();
         };
 
-        fetchTractors();
-    }, [TractorBrand, TractorModel, tyreBrand, season]);
+        // Final filtering
+        const finalFilteredTractors = filteredTractors.filter((tyre) => {
+          const matchesBrand = tyreBrand ? matchField(tyre.tyreBrand, tyreBrand) : true;
+          const matchesSeason = season && season !== "all" ? matchField(tyre.seasons, season) : true;
+          const matchesTractorBrand = TractorBrand ? matchField(tyre.tractorBrand, TractorBrand) : true;
+          const matchesTractorModel = TractorModel ? matchField(tyre.tractorModel, TractorModel) : true;
+
+          return (
+            matchesBrand &&
+            matchesSeason &&
+            matchesTractorBrand &&
+            matchesTractorModel
+          );
+        });
+
+        setSortedTractors(finalFilteredTractors);
+      } catch (error) {
+        console.error("Error fetching tractor tyres:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTractors();
+  }, [TractorBrand, TractorModel, tyreBrand, season]);
+
+
+
+
 
     return (
         <>

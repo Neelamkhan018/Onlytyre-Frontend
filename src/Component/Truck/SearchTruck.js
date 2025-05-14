@@ -8,47 +8,65 @@ import url from "../../env.js"
 
 
 export default function Searchtruck() {
-    const { TruckBrand, TruckModel, tyreBrand, season } = useParams();
-    const [sortedTyres, setSortedTyres] = useState([]);
-    const [loading, setLoading] = useState(false);
+    
 
-    useEffect(() => {
-        window.scrollTo(0, 0); // 👈 scroll to top when the component loads
+  const { TruckBrand, TruckModel, tyreBrand, season } = useParams();
+  const [sortedTyres, setSortedTyres] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-        const fetchTyres = async () => {
-            setLoading(true);
-            try {
-                const queryParams = new URLSearchParams();
-                if (TruckBrand) queryParams.append("truckBrand", TruckBrand);
-                if (TruckModel) queryParams.append("truckModel", TruckModel);
-                if (tyreBrand) queryParams.append("tyreBrand", tyreBrand);
-                if (season) queryParams.append("season", season);
+  useEffect(() => {
+    window.scrollTo(0, 0);
 
-                const response = await fetch(`${url.nodeapipath}/get-tyres?${queryParams.toString()}`);
-                const data = await response.json();
-                console.log("Truck API Response:", data);
+    const fetchTyres = async () => {
+      setLoading(true);
+      try {
+        const queryParams = new URLSearchParams();
+        if (TruckBrand) queryParams.append("truckBrand", TruckBrand);
+        if (TruckModel) queryParams.append("truckModel", TruckModel);
+        if (tyreBrand) queryParams.append("tyreBrand", tyreBrand);
+        if (season) queryParams.append("season", season);
 
-                const filteredTyres = data.filter(tyre => tyre.tyreType === "truck");
+        const response = await fetch(
+          `${url.nodeapipath}/get-tyres?${queryParams.toString()}`
+        );
+        const data = await response.json();
+        console.log("Truck API Response:", data);
 
-                const finalFilteredTyres = filteredTyres.filter(tyre => {
-                    const matchesBrand = tyreBrand ? tyre.tyreBrand.includes(tyreBrand) : true;
-                    const matchesSeason = season && season !== "all" ? tyre.seasons === season : true;
-                    const matchesTruckBrand = TruckBrand ? tyre.truckBrand.includes(TruckBrand) : true;
-                    const matchesTruckModel = TruckModel ? tyre.truckModel.includes(TruckModel) : true;
+        // Filter for 'truck' tyres only
+        const filteredTyres = data.filter(
+          (tyre) => tyre.tyreType?.toLowerCase() === "truck"
+        );
 
-                    return matchesBrand && matchesSeason && matchesTruckBrand && matchesTruckModel;
-                });
-
-                setSortedTyres(finalFilteredTyres);
-            } catch (error) {
-                console.error("Error fetching truck tyres:", error);
-            } finally {
-                setLoading(false);
-            }
+        // Helper for case-insensitive match
+        const matchField = (field, value) => {
+          if (!field || !value) return false;
+          if (Array.isArray(field)) {
+            return field.some((item) => item.toLowerCase() === value.toLowerCase());
+          }
+          return field.toLowerCase() === value.toLowerCase();
         };
 
-        fetchTyres();
-    }, [TruckBrand, TruckModel, tyreBrand, season]);
+        // Final filtering
+        const finalFilteredTyres = filteredTyres.filter((tyre) => {
+          const matchesBrand = tyreBrand ? matchField(tyre.tyreBrand, tyreBrand) : true;
+          const matchesSeason = season && season !== "all" ? matchField(tyre.seasons, season) : true;
+          const matchesTruckBrand = TruckBrand ? matchField(tyre.truckBrand, TruckBrand) : true;
+          const matchesTruckModel = TruckModel ? matchField(tyre.truckModel, TruckModel) : true;
+
+          return matchesBrand && matchesSeason && matchesTruckBrand && matchesTruckModel;
+        });
+
+        setSortedTyres(finalFilteredTyres);
+      } catch (error) {
+        console.error("Error fetching truck tyres:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTyres();
+  }, [TruckBrand, TruckModel, tyreBrand, season]);
+
 
     return (
         <>
