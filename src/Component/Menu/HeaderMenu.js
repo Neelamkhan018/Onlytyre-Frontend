@@ -393,13 +393,13 @@ export default function HeaderMenu({ cart }) {
   //   const storedUser = localStorage.getItem('loggedInUser');
   //   if (storedUser) setLoggedInUser(storedUser);
   
-  //   const loadCart = () => {
-  //     const storedCart = localStorage.getItem('cart');
-  //     if (storedCart) {
-  //       const cartItems = JSON.parse(storedCart);
-  //       setCartCount(cartItems.reduce((count, item) => count + (item.count || 0), 0));
-  //     }
-  //   };
+    // const loadCart = () => {
+    //   const storedCart = localStorage.getItem('cart');
+    //   if (storedCart) {
+    //     const cartItems = JSON.parse(storedCart);
+    //     setCartCount(cartItems.reduce((count, item) => count + (item.count || 0), 0));
+    //   }
+    // };
   
   //   const loadWishlist = () => {
   //     const storedWishlist = localStorage.getItem('wishlist');
@@ -430,15 +430,23 @@ useEffect(() => {
   const wishlistKey = `wishlist_${storedUser}`;
   const cartKey = `cart_${storedUser}`;
 
-  const loadCart = () => {
-    const storedCart = localStorage.getItem(cartKey);
-    if (storedCart) {
-      const cartItems = JSON.parse(storedCart);
-      setCartCount(cartItems.reduce((count, item) => count + (item.count || 1), 0));
-    } else {
-      setCartCount(0);
-    }
-  };
+  // const loadCart = () => {
+  //   const storedCart = localStorage.getItem(cartKey);
+  //   if (storedCart) {
+  //     const cartItems = JSON.parse(storedCart);
+  //     setCartCount(cartItems.reduce((count, item) => count + (item.count || 1), 0));
+  //   } else {
+  //     setCartCount(0);
+  //   }
+  // };
+
+      const loadCart = () => {
+      const storedCart = localStorage.getItem('cart');
+      if (storedCart) {
+        const cartItems = JSON.parse(storedCart);
+        setCartCount(cartItems.reduce((count, item) => count + (item.count || 0), 0));
+      }
+    };
 
   const loadWishlist = () => {
     const storedWishlist = localStorage.getItem(wishlistKey);
