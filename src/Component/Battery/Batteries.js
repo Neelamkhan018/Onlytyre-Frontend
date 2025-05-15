@@ -612,7 +612,14 @@ const Batteries = () => {
                         </div>
                         <div className="details">
                           <div className="brand">{battery.brand}</div>
-                          <h2>{battery.title}</h2>
+                          <h2 style={{
+                  display:"-webkit-box",
+                  WebkitLineClamp : 2,
+                  WebkitBoxOrient:"vertical",
+                  overflow:"hidden",
+                  textOverflow:"ellipsis",
+                  maxWidth:"100%"
+                }} >{battery.title}</h2>
                           <div className="price">
                             <div className="new">₹{battery.Salesprice}</div>
                             {isOnSale && <div className="old">₹{battery.price}</div>}

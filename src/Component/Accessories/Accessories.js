@@ -233,7 +233,14 @@ const Accessories = () => {
                         </div>
                         <div className="details">
                           <div className="brand">{accessory.brand}</div>
-                          <h2>{accessory.title}</h2>
+                          <h2 style={{
+                  display:"-webkit-box",
+                  WebkitLineClamp : 2,
+                  WebkitBoxOrient:"vertical",
+                  overflow:"hidden",
+                  textOverflow:"ellipsis",
+                  maxWidth:"100%"
+                }} >{accessory.title}</h2>
                           <div className="price">
                             <div className="new">₹{accessory.Salesprice}</div>
                             {isOnSale && <div className="old">₹{accessory.price}</div>}

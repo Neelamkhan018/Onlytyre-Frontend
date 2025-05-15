@@ -1444,7 +1444,7 @@ const handleAddToWishlist = () => {
   <li>
     <div className="title">
       {tyre.batteryType
-        ? "Battery Width"
+        ? "Battery Weight"
         : tyre.alloywheelType
         ? "Wheel Size"
         : "Width"}

@@ -741,7 +741,16 @@ const ForTyre = () => {
                           </div>
                           <div className="details">
                             <div className="brand">{tyre.brand}</div>
-                            <h2>{tyre.title}</h2>
+                            {/* <h2>{tyre.title}</h2> */}
+                              <h2 style={{
+                  display:"-webkit-box",
+                  WebkitLineClamp : 2,
+                  WebkitBoxOrient:"vertical",
+                  overflow:"hidden",
+                  textOverflow:"ellipsis",
+                  maxWidth:"100%"
+                }} 
+                >{tyre.title}</h2>
                             <h2>{tyre.description}</h2>
                             <div className="price">
                               <div className="new">₹{tyre.Salesprice}</div>

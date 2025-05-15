@@ -575,7 +575,14 @@ const AlloyWheels = () => {
                         </div>
                         <div className="details">
                           <div className="brand">{alloyWheel.brand}</div>
-                          <h2>{alloyWheel.title}</h2>
+                          <h2 style={{
+                  display:"-webkit-box",
+                  WebkitLineClamp : 2,
+                  WebkitBoxOrient:"vertical",
+                  overflow:"hidden",
+                  textOverflow:"ellipsis",
+                  maxWidth:"100%"
+                }} >{alloyWheel.title}</h2>
                           <div className="price">
                             <div className="new">₹{alloyWheel.Salesprice}</div>
                             {isOnSale && <div className="old">₹{alloyWheel.price}</div>}
