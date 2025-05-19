@@ -1179,7 +1179,7 @@ const handleAddToWishlist = () => {
           brand.image.map((imageItem, idx) => (
             <img 
               key={idx} 
-              src={`${url.nodeapipath}/uploads/${imageItem}`} 
+              src={`https://tyres.blr1.digitaloceanspaces.com/${imageItem}`} 
               alt={`brand-logo-${idx}`} 
               className="brand-logo" 
             />
