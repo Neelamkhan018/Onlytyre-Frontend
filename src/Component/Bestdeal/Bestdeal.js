@@ -540,7 +540,7 @@ useEffect(() => {
                 <div className="box">
                   <h3>Tyre Brand</h3>
                   <form>
-                    <ul>
+                    {/* <ul>
                       <li>
                         <div className="form-check">
                           <input
@@ -571,7 +571,117 @@ useEffect(() => {
                           </div>
                         </li>
                       ))}
-                    </ul>
+                    </ul> */}
+
+
+                    {/* <ul>
+  <li>
+    <div className="form-check">
+      <input
+        className="form-check-input"
+        type="checkbox"
+        id="allBrands"
+        checked={selectedBrands.length === 0} // Checked if no brand is selected
+        onChange={() => handleBrandClick("All")}
+      />
+      <label className="form-check-label" htmlFor="allBrands">
+        All
+      </label>
+    </div>
+  </li>
+  {(() => {
+    // Filter brands for the specified categories
+    const filteredBrands = brands.filter(brand =>
+      ['car', 'bike', 'truck', 'tractor', 'battery', 'alloywheel', 'accessories'].includes(brand.category)
+    );
+
+    // Create a Map to store unique brands by name
+    const uniqueBrandsMap = new Map();
+    filteredBrands.forEach(brand => {
+      if (!uniqueBrandsMap.has(brand.name.toLowerCase())) {
+        uniqueBrandsMap.set(brand.name.toLowerCase(), brand);
+      }
+    });
+
+    // Convert Map values to an array
+    const uniqueBrands = Array.from(uniqueBrandsMap.values());
+
+    // Render checkboxes for unique brands
+    return uniqueBrands.map(brand => (
+      <li key={brand._id}>
+        <div className="form-check">
+          <input
+            className="form-check-input"
+            type="checkbox"
+            id={`brand-${brand._id}`}
+            checked={selectedBrands.includes(brand._id)}
+            onChange={() => handleBrandClick(brand._id)}
+          />
+          <label className="form-check-label" htmlFor={`brand-${brand._id}`}>
+            {brand.name}
+          </label>
+        </div>
+      </li>
+    ));
+  })()}
+</ul> */}
+
+<ul>
+  <li>
+    <div className="form-check">
+      <input
+        className="form-check-input"
+        type="checkbox"
+        id="allBrands"
+        checked={selectedBrands.length === 0}
+        onChange={() => handleBrandClick("All")}
+      />
+      <label className="form-check-label" htmlFor="allBrands">
+        All
+      </label>
+    </div>
+  </li>
+  {(() => {
+    // Debug: log brands to inspect duplicates
+    // console.log('All brands:', brands);
+
+    // Filter brands for the desired categories
+    const filtered = brands.filter(b =>
+      ['car', 'bike', 'truck', 'tractor', 'battery', 'alloywheel', 'accessories'].includes(b.category)
+    );
+
+    // Deduplicate by brand name, keeping the first occurrence
+    const uniqueByName = [];
+    const seenNames = new Set();
+
+    for (const brand of filtered) {
+      const nameKey = brand.name.trim().toLowerCase();
+      if (!seenNames.has(nameKey)) {
+        seenNames.add(nameKey);
+        uniqueByName.push(brand);
+      }
+    }
+
+    return uniqueByName.map(brand => (
+      <li key={brand._id}>
+        <div className="form-check">
+          <input
+            className="form-check-input"
+            type="checkbox"
+            id={`brand-${brand._id}`}
+            checked={selectedBrands.includes(brand._id)}
+            onChange={() => handleBrandClick(brand._id)}
+          />
+          <label className="form-check-label" htmlFor={`brand-${brand._id}`}>
+            {brand.name}
+          </label>
+        </div>
+      </li>
+    ));
+  })()}
+</ul>
+
+
                   </form>
                 </div>
               </div>

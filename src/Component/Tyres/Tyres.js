@@ -451,40 +451,6 @@ const ForTyre = () => {
     fetchBrands();
   }, []);
 
-  // useEffect(() => {
-  //   const fetchTyres = async () => {
-  //     setLoading(true);
-  //     try {
-  //       const response = await fetch(`${url.nodeapipath}/get-tyres`);
-  //       const data = await response.json();
-  //       console.log('Fetched tyres:', data);
-        
-  //       // Filter car, bike, truck, and tractor tyres and remove duplicates
-  //       const carTyres = data.filter(tyre => tyre.tyreType === 'car');
-  //       const uniqueCarTyres = [...new Map(carTyres.map(t => [t._id, t])).values()];
-        
-  //       const bikeTyres = data.filter(tyre => tyre.tyreType === 'bike');
-  //       const uniqueBikeTyres = [...new Map(bikeTyres.map(t => [t._id, t])).values()];
-
-  //       const truckTyres = data.filter(tyre => tyre.tyreType === 'truck');
-  //       const uniqueTruckTyres = [...new Map(truckTyres.map(t => [t._id, t])).values()];
-
-  //       const tractorTyres = data.filter(tyre => tyre.tyreType === 'tractor'); // New line for tractor tyres
-  //       const uniqueTractorTyres = [...new Map(tractorTyres.map(t => [t._id, t])).values()]; // Remove duplicates
-
-  //       // Combine all tyres
-  //       setSortedTyres([...uniqueCarTyres, ...uniqueBikeTyres, ...uniqueTruckTyres, ...uniqueTractorTyres]);
-  //     } catch (error) {
-  //       console.error('Error fetching tyres:', error);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-  
-  //   fetchTyres();
-  // }, []);
-  
-
   useEffect(() => {
     const fetchTyres = async () => {
       setLoading(true);
@@ -493,38 +459,21 @@ const ForTyre = () => {
         const data = await response.json();
         console.log('Fetched tyres:', data);
         
-        // Filter car, bike, truck, tractor tyres, batteries, alloy wheels, and accessories
+        // Filter car, bike, truck, and tractor tyres and remove duplicates
         const carTyres = data.filter(tyre => tyre.tyreType === 'car');
         const uniqueCarTyres = [...new Map(carTyres.map(t => [t._id, t])).values()];
         
         const bikeTyres = data.filter(tyre => tyre.tyreType === 'bike');
         const uniqueBikeTyres = [...new Map(bikeTyres.map(t => [t._id, t])).values()];
-  
+
         const truckTyres = data.filter(tyre => tyre.tyreType === 'truck');
         const uniqueTruckTyres = [...new Map(truckTyres.map(t => [t._id, t])).values()];
-  
-        const tractorTyres = data.filter(tyre => tyre.tyreType === 'tractor');
-        const uniqueTractorTyres = [...new Map(tractorTyres.map(t => [t._id, t])).values()];
-  
-        const batteries = data.filter(tyre => tyre.tyreType === 'battery'); // Assuming type is used for batteries
-        const uniqueBatteries = [...new Map(batteries.map(t => [t._id, t])).values()];
-  
-        const alloyWheels = data.filter(tyre => tyre.tyreType === 'alloywheel'); // Assuming type is used for alloy wheels
-        const uniqueAlloyWheels = [...new Map(alloyWheels.map(t => [t._id, t])).values()];
-  
-        const accessories = data.filter(tyre => tyre.tyreType === 'accessories'); // Assuming type is used for accessories
-        const uniqueAccessories = [...new Map(accessories.map(t => [t._id, t])).values()];
-  
-        // Combine all unique tyres, batteries, alloy wheels, and accessories
-        setSortedTyres([
-          ...uniqueCarTyres,
-          ...uniqueBikeTyres,
-          ...uniqueTruckTyres,
-          ...uniqueTractorTyres,
-          ...uniqueBatteries,
-          ...uniqueAlloyWheels,
-          ...uniqueAccessories
-        ]);
+
+        const tractorTyres = data.filter(tyre => tyre.tyreType === 'tractor'); // New line for tractor tyres
+        const uniqueTractorTyres = [...new Map(tractorTyres.map(t => [t._id, t])).values()]; // Remove duplicates
+
+        // Combine all tyres
+        setSortedTyres([...uniqueCarTyres, ...uniqueBikeTyres, ...uniqueTruckTyres, ...uniqueTractorTyres]);
       } catch (error) {
         console.error('Error fetching tyres:', error);
       } finally {
@@ -534,6 +483,57 @@ const ForTyre = () => {
   
     fetchTyres();
   }, []);
+  
+
+  // useEffect(() => {
+  //   const fetchTyres = async () => {
+  //     setLoading(true);
+  //     try {
+  //       const response = await fetch(`${url.nodeapipath}/get-tyres`);
+  //       const data = await response.json();
+  //       console.log('Fetched tyres:', data);
+        
+  //       // Filter car, bike, truck, tractor tyres, batteries, alloy wheels, and accessories
+  //       const carTyres = data.filter(tyre => tyre.tyreType === 'car');
+  //       const uniqueCarTyres = [...new Map(carTyres.map(t => [t._id, t])).values()];
+        
+  //       const bikeTyres = data.filter(tyre => tyre.tyreType === 'bike');
+  //       const uniqueBikeTyres = [...new Map(bikeTyres.map(t => [t._id, t])).values()];
+  
+  //       const truckTyres = data.filter(tyre => tyre.tyreType === 'truck');
+  //       const uniqueTruckTyres = [...new Map(truckTyres.map(t => [t._id, t])).values()];
+  
+  //       const tractorTyres = data.filter(tyre => tyre.tyreType === 'tractor');
+  //       const uniqueTractorTyres = [...new Map(tractorTyres.map(t => [t._id, t])).values()];
+  
+  //       const batteries = data.filter(tyre => tyre.tyreType === 'battery'); // Assuming type is used for batteries
+  //       const uniqueBatteries = [...new Map(batteries.map(t => [t._id, t])).values()];
+  
+  //       const alloyWheels = data.filter(tyre => tyre.tyreType === 'alloywheel'); // Assuming type is used for alloy wheels
+  //       const uniqueAlloyWheels = [...new Map(alloyWheels.map(t => [t._id, t])).values()];
+  
+  //       const accessories = data.filter(tyre => tyre.tyreType === 'accessories'); // Assuming type is used for accessories
+  //       const uniqueAccessories = [...new Map(accessories.map(t => [t._id, t])).values()];
+  
+  //       // Combine all unique tyres, batteries, alloy wheels, and accessories
+  //       setSortedTyres([
+  //         ...uniqueCarTyres,
+  //         ...uniqueBikeTyres,
+  //         ...uniqueTruckTyres,
+  //         ...uniqueTractorTyres,
+  //         ...uniqueBatteries,
+  //         ...uniqueAlloyWheels,
+  //         ...uniqueAccessories
+  //       ]);
+  //     } catch (error) {
+  //       console.error('Error fetching tyres:', error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+  
+  //   fetchTyres();
+  // }, []);
 
 
 
@@ -592,7 +592,7 @@ const ForTyre = () => {
                 <div className="box">
                   <h3>Tyre Brand</h3>
                   <form action="">
-                    <ul>
+                    {/* <ul>
                       <li>
                         <div className="form-check">
                           <input
@@ -625,7 +625,119 @@ const ForTyre = () => {
                           </li>
                         ))}
                       </ul>
-                    </ul>
+                    </ul> */}
+
+                    {/* This is the brands checkbox list part inside your ForTyre component */}
+
+{/* <ul>
+  <li>
+    <div className="form-check">
+      <input
+        className="form-check-input"
+        type="checkbox"
+        id="allTyres"
+        checked={selectedBrands.length === 0}
+        onChange={() => handleBrandClick("All")}
+      />
+      <label className="form-check-label" htmlFor="allTyres">
+        All
+      </label>
+    </div>
+  </li>
+  <ul>
+    {(() => {
+      // Filter by relevant categories
+      const filteredBrands = brands.filter(brand =>
+        ['car', 'bike', 'truck', 'tractor'].includes(brand.category)
+      );
+
+      // Create a Map to store unique brands by name
+      const uniqueBrandsMap = new Map();
+      filteredBrands.forEach(brand => {
+        if (!uniqueBrandsMap.has(brand.name.toLowerCase())) {
+          uniqueBrandsMap.set(brand.name.toLowerCase(), brand);
+        }
+      });
+
+      // Convert Map values to an array
+      const uniqueBrands = Array.from(uniqueBrandsMap.values());
+
+      // Render checkboxes for unique brands
+      return uniqueBrands.map(brand => (
+        <li key={brand._id}>
+          <div className="form-check">
+            <input
+              className="form-check-input"
+              type="checkbox"
+              id={`brand-${brand._id}`}
+              checked={selectedBrands.includes(brand._id)}
+              onChange={() => handleBrandClick(brand._id)}
+            />
+            <label className="form-check-label" htmlFor={`brand-${brand._id}`}>
+              {brand.name}
+            </label>
+          </div>
+        </li>
+      ));
+    })()}
+  </ul>
+</ul> */}
+
+<ul>
+  <li>
+    <div className="form-check">
+      <input
+        className="form-check-input"
+        type="checkbox"
+        id="allTyres"
+        checked={selectedBrands.length === 0}
+        onChange={() => handleBrandClick("All")}
+      />
+      <label className="form-check-label" htmlFor="allTyres">
+        All
+      </label>
+    </div>
+  </li>
+  <ul>
+    {(() => {
+      // Filter brands for relevant categories
+      const filteredBrands = brands.filter(brand =>
+        ['car', 'bike', 'truck', 'tractor'].includes(brand.category)
+      );
+
+      // Use Map with trimmed lowercase keys for uniqueness
+      const uniqueBrandsMap = new Map();
+      filteredBrands.forEach(brand => {
+        const key = brand.name.trim().toLowerCase(); // trim spaces and lowercase
+        if (!uniqueBrandsMap.has(key)) {
+          uniqueBrandsMap.set(key, brand);
+        }
+      });
+
+      const uniqueBrands = Array.from(uniqueBrandsMap.values());
+
+      return uniqueBrands.map(brand => (
+        <li key={brand._id}>
+          <div className="form-check">
+            <input
+              className="form-check-input"
+              type="checkbox"
+              id={`brand-${brand._id}`}
+              checked={selectedBrands.includes(brand._id)}
+              onChange={() => handleBrandClick(brand._id)}
+            />
+            <label className="form-check-label" htmlFor={`brand-${brand._id}`}>
+              {brand.name}
+            </label>
+          </div>
+        </li>
+      ));
+    })()}
+  </ul>
+</ul>
+
+
+
                   </form>
                 </div>
               </div>

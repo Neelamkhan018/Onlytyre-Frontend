@@ -245,7 +245,9 @@ const ForBike = () => {
   </li>
   
   <ul>
-  {tyreBrands.map(brand => (
+  {tyreBrands
+  .filter(brand => brand.category === 'bike') // Filter to show only car brands
+  .map(brand => (
   <li key={brand._id}>
     <div className="form-check">
       <input
