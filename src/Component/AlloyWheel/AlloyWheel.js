@@ -335,17 +335,296 @@
 
 
 
+// import React, { useEffect, useState } from 'react';
+// import { Link } from 'react-router-dom';
+// import FrontendFooter from '../Footer/FrontendFooter';
+
+// import url from "../../env.js";
+
+// const AlloyWheels = () => {
+//   const [sortedAlloyWheels, setSortedAlloyWheels] = useState([]);
+//   const [alloyWheelBrands, setAlloyWheelBrands] = useState([]);
+//   const [loading, setLoading] = useState(false);
+//   const [selectedAlloyWheelBrands, setSelectedAlloyWheelBrands] = useState([]);
+//   const [sortOption, setSortOption] = useState('');
+//   const [allAlloyWheels, setAllAlloyWheels] = useState([]);
+
+//   // Fetch initial data
+//   useEffect(() => {
+//     const fetchInitialData = async () => {
+//       setLoading(true);
+//       try {
+//         const [alloyWheelsRes, alloyWheelBrandsRes] = await Promise.all([
+//           fetch(`${url.nodeapipath}/get-tyres`), // Endpoint for alloy wheels
+//           fetch(`${url.nodeapipath}/get-alloybrand`), // Endpoint for alloy wheel brands
+//         ]);
+  
+//         const [alloyWheelsData, alloyWheelBrandsData] = await Promise.all([
+//           alloyWheelsRes.json(),
+//           alloyWheelBrandsRes.json(),
+//         ]);
+  
+//         const filteredAlloyWheels = alloyWheelsData.filter(a => a.tyreType === 'alloywheel'); // Filter for alloy wheels
+//         setSortedAlloyWheels(filteredAlloyWheels); // Store sorted alloy wheels
+//         setAllAlloyWheels(filteredAlloyWheels); // Store original alloy wheels
+//         setAlloyWheelBrands(alloyWheelBrandsData);
+//       } catch (error) {
+//         console.error('Error fetching data:', error);
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+  
+//     fetchInitialData();
+//   }, []);
+
+  // // Fetch filtered alloy wheels based on selected brands
+  // useEffect(() => {
+  //   const fetchFilteredAlloyWheels = async () => {
+  //     setLoading(true);
+  //     try {
+  //       let alloyResults = [];
+
+  //       // Fetch alloy wheels based on selected alloy wheel brands
+  //       if (selectedAlloyWheelBrands.length > 0) {
+  //         const alloyRequests = selectedAlloyWheelBrands.map(id =>
+  //           fetch(`${url.nodeapipath}/get-foralloywheel/${id}`).then(res => res.json())
+  //         );
+  //         const alloyResponses = await Promise.all(alloyRequests);
+  //         alloyResults = alloyResponses.flatMap(res => res.alloyWheels || []);
+  //       } else {
+  //         alloyResults = allAlloyWheels; // fallback to original data
+  //       }
+
+  //       const uniqueAlloyWheels = [...new Map(alloyResults.map(item => [item._id, item])).values()];
+  //       setSortedAlloyWheels(uniqueAlloyWheels);
+  //     } catch (error) {
+  //       console.error('Error fetching alloy wheels:', error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+  
+  //   fetchFilteredAlloyWheels();
+  // }, [selectedAlloyWheelBrands, allAlloyWheels]);
+
+//   // Handle Alloy Wheel Brand Checkbox Toggle
+//   const handleAlloyWheelBrandToggle = (brandId) => {
+//     setSelectedAlloyWheelBrands(prev =>
+//       prev.includes(brandId) ? prev.filter(id => id !== brandId) : [...prev, brandId]
+//     );
+//   };
+
+//   const handleSortChange = (event) => {
+//     const value = event.target.value;
+//     setSortOption(value);
+
+//     let alloyWheels = [...sortedAlloyWheels];
+
+//     switch (value) {
+//       case 'price-asc':
+//         alloyWheels.sort((a, b) => a.Salesprice - b.Salesprice);
+//         break;
+//       case 'price-desc':
+//         alloyWheels.sort((a, b) => b.Salesprice - a.Salesprice);
+//         break;
+//       case 'rating-asc':
+//         alloyWheels.sort((a, b) => a.rating - b.rating);
+//         break;
+//       case 'rating-desc':
+//         alloyWheels.sort((a, b) => b.rating - a.rating);
+//         break;
+//       case 'newest':
+//         alloyWheels.sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded));
+//         break;
+//       default:
+//         break;
+//     }
+
+//     setSortedAlloyWheels([...alloyWheels]); // Ensure React detects the state update
+//   };
+
+//   return (
+//     <>
+//       <section className="breadcrumbs">
+//         <div className="container">
+//           <ul>
+//             <li><Link to="/">Home</Link></li>
+//             <li>Alloy Wheels</li>
+//           </ul>
+//         </div>
+//       </section>
+
+//       <section className="padding-block-500">
+//         <div className="container">
+//           <div className="row row-gap-5">
+//             <div className="col-md-3 hideMobile">
+//               <div className="siderFilter">
+//                 {/* Alloy Wheel Brands Filter */}
+//                 <div className="box">
+//                   <h3>Alloy Wheel Brand</h3>
+//                   <form action="">
+//                     <ul>
+//                       <li>
+//                         <div className="form-check">
+//                           <input
+//                             className="form-check-input"
+//                             type="checkbox"
+//                             id="allAlloyWheelBrands"
+//                             checked={selectedAlloyWheelBrands.length === 0}
+//                             onChange={() => setSelectedAlloyWheelBrands([])} // Clear all selections when "All" is checked
+//                           />
+//                           <label className="form-check-label" htmlFor="allAlloyWheelBrands">All</label>
+//                         </div>
+//                       </li>
+
+//                       <ul>
+//                         {alloyWheelBrands.map(brand => (
+//                           <li key={brand._id}>
+//                             <div className="form-check">
+//                               <input
+//                                 className="form-check-input"
+//                                 type="checkbox"
+//                                 id={`alloyWheel-${brand._id}`}
+//                                 checked={selectedAlloyWheelBrands.includes(brand._id)}
+//                                 onChange={() => handleAlloyWheelBrandToggle(brand._id)}
+//                               />
+//                               <label className="form-check-label" htmlFor={`alloyWheel-${brand._id}`}>{brand.name}</label>
+//                             </div>
+//                           </li>
+//                         ))}
+//                       </ul>
+//                     </ul>
+//                   </form>
+//                 </div>
+//               </div>
+//             </div>
+
+//             <div className="col-md-9">
+//               <div className="row align-items-center">
+//                 <div className="col-6 col-md-9">
+//                   <a
+//                     href=""
+//                     className="showsidebar"
+//                     data-bs-toggle="offcanvas"
+//                     data-bs-target="#sideBarFilter"
+//                     aria-controls="sideBarFilter"
+//                   >
+//                     <img src="assets/images/icons/svg/menu.svg" alt="" /> Show Sidebar
+//                   </a>
+//                 </div>
+
+//                 <div className="col-6 col-md-3">
+//                   <form action="">
+//                     <select
+//                       value={sortOption}
+//                       onChange={handleSortChange}
+//                       name="orderby"
+//                       className="orderby"
+//                       aria-label="Shop order"
+//                     >
+//                       <option value="menu_order">Default Sorting</option>
+//                       <option value="price-asc">Price: Low to High</option>
+//                       <option value="price-desc">Price: High to Low</option>
+//                       <option value="rating-desc">Top Rated</option>
+//                       <option value="newest">Newest Arrivals</option>
+//                     </select>
+//                   </form>
+//                 </div>
+//               </div>
+
+//               <div className="row gx-4 justify-content-start row-gap-5 mt-5">
+//                 {sortedAlloyWheels.map(alloyWheel => {
+//                   const isNew = (new Date() - new Date(alloyWheel.createdAt)) < 30 * 24 * 60 * 60 * 1000;
+//                   const isOnSale = alloyWheel.Salesprice < alloyWheel.price;
+
+//                   return (
+//                     <div className="col" key={alloyWheel._id}>
+//                       <div className="singleProduct">
+//                         <div className="photo">
+//                           {isOnSale && <div className="sale">SALE</div>}
+//                           {isNew && <div className="new">NEW</div>}
+//                           <ul className="cate">
+//   {alloyWheel.alloywheelType === 'car' && (
+//     <li>
+//       <img
+//         src="assets/images/icons/png/car.png"
+//         className="car"
+//         alt="Car Icon"
+//       />     
+//     </li>
+//   )}
+
+//   {alloyWheel.alloywheelType === 'bike' && (
+//     <li>
+//       <img
+//         src="assets/images/icons/png/bike.png"
+//         className="bike"
+//         alt="Bike Icon"
+//       />
+//     </li>
+//   )}
+//   </ul>
+//                           <img
+//                             className="img-fluid"
+//                             // src={`${url.nodeapipath}/uploads/${alloyWheel.avatarImages}`}
+//                             src={`https://tyres.blr1.digitaloceanspaces.com/${alloyWheel.avatarImages}`} 
+
+//                             alt={alloyWheel.title}
+//                           />
+//                         </div>
+//                         <div className="details">
+//                           <div className="brand">{alloyWheel.brand}</div>
+//                           <h2 style={{
+//                   display:"-webkit-box",
+//                   WebkitLineClamp : 2,
+//                   WebkitBoxOrient:"vertical",
+//                   overflow:"hidden",
+//                   textOverflow:"ellipsis",
+//                   maxWidth:"100%"
+//                 }} >{alloyWheel.title}</h2>
+//                           <div className="price">
+//                             <div className="new">₹{alloyWheel.Salesprice}</div>
+//                             {isOnSale && <div className="old">₹{alloyWheel.price}</div>}
+//                           </div>
+//                           <Link to={`/alloywheel/${alloyWheel.slug}`} className="btn2">
+//                             VIEW DETAILS
+//                           </Link>
+//                         </div>
+//                       </div>
+//                     </div>
+//                   );
+//                 })}
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+//       </section>
+
+//       <FrontendFooter />
+//     </>
+//   );
+// };
+
+// export default AlloyWheels;
+        
+
+
+
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import FrontendFooter from '../Footer/FrontendFooter';
-
 import url from "../../env.js";
 
 const AlloyWheels = () => {
   const [sortedAlloyWheels, setSortedAlloyWheels] = useState([]);
   const [alloyWheelBrands, setAlloyWheelBrands] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [carBrands, setCarBrands] = useState([]);
+  const [carModels, setCarModels] = useState([]); // State for car models
   const [selectedAlloyWheelBrands, setSelectedAlloyWheelBrands] = useState([]);
+  const [selectedCarBrands, setSelectedCarBrands] = useState([]);
+  const [selectedCarModels, setSelectedCarModels] = useState([]); // State for selected car models
+  const [loading, setLoading] = useState(false);
   const [sortOption, setSortOption] = useState('');
   const [allAlloyWheels, setAllAlloyWheels] = useState([]);
 
@@ -354,59 +633,53 @@ const AlloyWheels = () => {
     const fetchInitialData = async () => {
       setLoading(true);
       try {
-        const [alloyWheelsRes, alloyWheelBrandsRes] = await Promise.all([
-          fetch(`${url.nodeapipath}/get-tyres`), // Endpoint for alloy wheels
-          fetch(`${url.nodeapipath}/get-alloybrand`), // Endpoint for alloy wheel brands
+        const [alloyWheelsRes, alloyWheelBrandsRes, carBrandsRes] = await Promise.all([
+          fetch(`${url.nodeapipath}/get-tyres`),
+          fetch(`${url.nodeapipath}/get-alloybrand`),
+          fetch(`${url.nodeapipath}/get-carbrand`), // Fetch car brands
         ]);
-  
-        const [alloyWheelsData, alloyWheelBrandsData] = await Promise.all([
+
+        const [alloyWheelsData, alloyWheelBrandsData, carBrandsData] = await Promise.all([
           alloyWheelsRes.json(),
           alloyWheelBrandsRes.json(),
+          carBrandsRes.json(),
         ]);
-  
-        const filteredAlloyWheels = alloyWheelsData.filter(a => a.tyreType === 'alloywheel'); // Filter for alloy wheels
-        setSortedAlloyWheels(filteredAlloyWheels); // Store sorted alloy wheels
-        setAllAlloyWheels(filteredAlloyWheels); // Store original alloy wheels
+
+        const filteredAlloyWheels = alloyWheelsData.filter(a => a.tyreType === 'alloywheel');
+        setSortedAlloyWheels(filteredAlloyWheels);
+        setAllAlloyWheels(filteredAlloyWheels);
         setAlloyWheelBrands(alloyWheelBrandsData);
+        setCarBrands(carBrandsData); // Set car brands
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
         setLoading(false);
       }
     };
-  
+
     fetchInitialData();
   }, []);
 
-  // Fetch filtered alloy wheels based on selected brands
+  // Fetch car models based on selected car brands
   useEffect(() => {
-    const fetchFilteredAlloyWheels = async () => {
-      setLoading(true);
-      try {
-        let alloyResults = [];
-
-        // Fetch alloy wheels based on selected alloy wheel brands
-        if (selectedAlloyWheelBrands.length > 0) {
-          const alloyRequests = selectedAlloyWheelBrands.map(id =>
-            fetch(`${url.nodeapipath}/get-foralloywheel/${id}`).then(res => res.json())
-          );
-          const alloyResponses = await Promise.all(alloyRequests);
-          alloyResults = alloyResponses.flatMap(res => res.alloyWheels || []);
-        } else {
-          alloyResults = allAlloyWheels; // fallback to original data
+    const fetchCarModels = async () => {
+      if (selectedCarBrands.length > 0) {
+        try {
+          const selectedBrandIds = selectedCarBrands.map(brand => brand); // Use the selected brand IDs directly
+          const query = selectedBrandIds.map(id => `brandid=${id}`).join('&');
+          const response = await fetch(`${url.nodeapipath}/get-carmodel?${query}`);
+          const activeModels = await response.json();
+          setCarModels(activeModels.filter(model => model.active)); // Set active car models
+        } catch (error) {
+          console.error('Error fetching car models:', error);
         }
-
-        const uniqueAlloyWheels = [...new Map(alloyResults.map(item => [item._id, item])).values()];
-        setSortedAlloyWheels(uniqueAlloyWheels);
-      } catch (error) {
-        console.error('Error fetching alloy wheels:', error);
-      } finally {
-        setLoading(false);
+      } else {
+        setCarModels([]); // Clear car models if no brand is selected
       }
     };
-  
-    fetchFilteredAlloyWheels();
-  }, [selectedAlloyWheelBrands, allAlloyWheels]);
+
+    fetchCarModels();
+  }, [selectedCarBrands]);
 
   // Handle Alloy Wheel Brand Checkbox Toggle
   const handleAlloyWheelBrandToggle = (brandId) => {
@@ -414,6 +687,67 @@ const AlloyWheels = () => {
       prev.includes(brandId) ? prev.filter(id => id !== brandId) : [...prev, brandId]
     );
   };
+
+  // Handle Car Brand Checkbox Toggle
+  const handleCarBrandToggle = (brandId) => {
+    setSelectedCarBrands(prev =>
+      prev.includes(brandId) ? prev.filter(id => id !== brandId) : [...prev, brandId]
+    );
+  };
+
+  // Handle Car Model Checkbox Toggle
+  const handleCarModelToggle = (modelId) => {
+    setSelectedCarModels(prev =>
+      prev.includes(modelId) ? prev.filter(id => id !== modelId) : [...prev, modelId]
+    );
+  };
+
+
+useEffect(() => {
+  const fetchFilteredAlloyWheels = async () => {
+    setLoading(true);
+    try {
+      let alloyResults = [];
+
+      // Fetch alloy wheels based on selected alloy wheel brands
+      if (selectedAlloyWheelBrands.length > 0) {
+        const alloyRequests = selectedAlloyWheelBrands.map(id =>
+          fetch(`${url.nodeapipath}/get-foralloywheel/${id}`).then(res => res.json())
+        );
+        const alloyResponses = await Promise.all(alloyRequests);
+        alloyResults = alloyResponses.flatMap(res => res.alloyWheels || []);
+      } else {
+        alloyResults = allAlloyWheels; // fallback to original data
+      }
+
+      // Filter by selected car brands
+      if (selectedCarBrands.length > 0) {
+        alloyResults = alloyResults.filter(alloyWheel =>
+          alloyWheel.carbrand.some(brand => selectedCarBrands.includes(brand)) // Check if any selected brand is in the carbrand array
+        );
+      }
+
+      // Filter by selected car models
+      if (selectedCarModels.length > 0) {
+        alloyResults = alloyResults.filter(alloyWheel =>
+          alloyWheel.carModel.some(model => selectedCarModels.includes(model)) // Check if any selected model is in the carModel array
+        );
+      }
+
+      // Remove duplicates based on _id
+      const uniqueAlloyWheels = [...new Map(alloyResults.map(item => [item._id, item])).values()];
+      setSortedAlloyWheels(uniqueAlloyWheels);
+    } catch (error) {
+      console.error('Error fetching alloy wheels:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchFilteredAlloyWheels();
+}, [selectedAlloyWheelBrands, selectedCarBrands, selectedCarModels, allAlloyWheels]);
+
+
 
   const handleSortChange = (event) => {
     const value = event.target.value;
@@ -441,7 +775,7 @@ const AlloyWheels = () => {
         break;
     }
 
-    setSortedAlloyWheels([...alloyWheels]); // Ensure React detects the state update
+    setSortedAlloyWheels([...alloyWheels]);
   };
 
   return (
@@ -472,12 +806,11 @@ const AlloyWheels = () => {
                             type="checkbox"
                             id="allAlloyWheelBrands"
                             checked={selectedAlloyWheelBrands.length === 0}
-                            onChange={() => setSelectedAlloyWheelBrands([])} // Clear all selections when "All" is checked
+                            onChange={() => setSelectedAlloyWheelBrands([])}
                           />
                           <label className="form-check-label" htmlFor="allAlloyWheelBrands">All</label>
                         </div>
                       </li>
-
                       <ul>
                         {alloyWheelBrands.map(brand => (
                           <li key={brand._id}>
@@ -497,6 +830,54 @@ const AlloyWheels = () => {
                     </ul>
                   </form>
                 </div>
+
+                {/* Car Brands Filter */}
+                <div className="box">
+                  <h3>Car Brand</h3>
+                  <form action="">
+                    <ul>
+                      {carBrands.map(brand => (
+                        <li key={brand._id}>
+                          <div className="form-check">
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                              id={`carBrand-${brand._id}`}
+                              checked={selectedCarBrands.includes(brand._id)}
+                              onChange={() => handleCarBrandToggle(brand._id)}
+                            />
+                            <label className="form-check-label" htmlFor={`carBrand-${brand._id}`}>{brand.name}</label>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </form>
+                </div>
+
+                {/* Car Models Filter */}
+                {selectedCarBrands.length > 0 && (
+                  <div className="box">
+                    <h3>Car Models</h3>
+                    <form action="">
+                      <ul>
+                        {carModels.map(model => (
+                          <li key={model._id}>
+                            <div className="form-check">
+                              <input
+                                className="form-check-input"
+                                type="checkbox"
+                                id={`carModel-${model._id}`}
+                                checked={selectedCarModels.includes(model._id)}
+                                onChange={() => handleCarModelToggle(model._id)} // Handle model selection
+                              />
+                              <label className="form-check-label" htmlFor={`carModel-${model._id}`}>{model.name}</label>
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+                    </form>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -545,44 +926,41 @@ const AlloyWheels = () => {
                           {isOnSale && <div className="sale">SALE</div>}
                           {isNew && <div className="new">NEW</div>}
                           <ul className="cate">
-  {alloyWheel.alloywheelType === 'car' && (
-    <li>
-      <img
-        src="assets/images/icons/png/car.png"
-        className="car"
-        alt="Car Icon"
-      />     
-    </li>
-  )}
-
-  {alloyWheel.alloywheelType === 'bike' && (
-    <li>
-      <img
-        src="assets/images/icons/png/bike.png"
-        className="bike"
-        alt="Bike Icon"
-      />
-    </li>
-  )}
-  </ul>
+                            {alloyWheel.alloywheelType === 'car' && (
+                              <li>
+                                <img
+                                  src="assets/images/icons/png/car.png"
+                                  className="car"
+                                  alt="Car Icon"
+                                />
+                              </li>
+                            )}
+                            {alloyWheel.alloywheelType === 'bike' && (
+                              <li>
+                                <img
+                                  src="assets/images/icons/png/bike.png"
+                                  className="bike"
+                                  alt="Bike Icon"
+                                />
+                              </li>
+                            )}
+                          </ul>
                           <img
                             className="img-fluid"
-                            // src={`${url.nodeapipath}/uploads/${alloyWheel.avatarImages}`}
-                            src={`https://tyres.blr1.digitaloceanspaces.com/${alloyWheel.avatarImages}`} 
-
+                            src={`https://tyres.blr1.digitaloceanspaces.com/${alloyWheel.avatarImages}`}
                             alt={alloyWheel.title}
                           />
                         </div>
                         <div className="details">
                           <div className="brand">{alloyWheel.brand}</div>
                           <h2 style={{
-                  display:"-webkit-box",
-                  WebkitLineClamp : 2,
-                  WebkitBoxOrient:"vertical",
-                  overflow:"hidden",
-                  textOverflow:"ellipsis",
-                  maxWidth:"100%"
-                }} >{alloyWheel.title}</h2>
+                            display: "-webkit-box",
+                            WebkitLineClamp: 2,
+                            WebkitBoxOrient: "vertical",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            maxWidth: "100%"
+                          }}>{alloyWheel.title}</h2>
                           <div className="price">
                             <div className="new">₹{alloyWheel.Salesprice}</div>
                             {isOnSale && <div className="old">₹{alloyWheel.price}</div>}
@@ -607,4 +985,7 @@ const AlloyWheels = () => {
 };
 
 export default AlloyWheels;
-        
+
+
+
+

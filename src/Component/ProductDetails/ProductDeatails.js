@@ -759,6 +759,8 @@ const [selectedImage, setSelectedImage] = useState(tyre?.avatarImages || ""); //
   ].filter(Boolean); // Removes any empty values
 
 
+const [carBrandName, setCarBrandName] = useState('');
+const [carModelName, setCarModelName] = useState('');
 
 
   const [isInWishlist, setIsInWishlist] = useState(false); // Track if item is in wishlist
@@ -795,6 +797,21 @@ const [selectedImage, setSelectedImage] = useState(tyre?.avatarImages || ""); //
           const data = await response.json();
           setAlloyWheelModelName(data.name);
         }
+
+
+        // Fetch car brand and model
+      if (tyre.carbrand) {
+        const response = await fetch(`${url.nodeapipath}/get-carbrand/${tyre.carbrand}`);
+        const data = await response.json();
+        setCarBrandName(data.name);
+      }
+      if (tyre.carModel) {
+        const response = await fetch(`${url.nodeapipath}/get-carmodel/${tyre.carModel}`);
+        const data = await response.json();
+        setCarModelName(data.name);
+      }
+  
+
   
       }
     };
@@ -1420,6 +1437,8 @@ const handleAddToWishlist = () => {
         <>
           <li>{alloyWheelBrandName}</li>
           <li>{alloyWheelModelName}</li>
+          <li>{carBrandName}</li>  {/* Add car brand name */}
+    <li>{carModelName}</li>  
         </>
       )}
       {tyre.tyreType === 'accessories' && (
