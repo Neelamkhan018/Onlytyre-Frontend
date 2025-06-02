@@ -1042,11 +1042,69 @@ useEffect(() => {
 
 
 
+// const handleAddToWishlist = () => {
+//   if (!tyre) return;
+
+//   const user = localStorage.getItem('loggedInUser');
+//   if (!user) return;
+
+//   const key = `wishlist_${user}`;
+//   const storedWishlist = localStorage.getItem(key);
+//   let wishlist = storedWishlist ? JSON.parse(storedWishlist) : [];
+
+//   const isAlreadyInWishlist = wishlist.some(item => item._id === tyre._id);
+//   if (!isAlreadyInWishlist) {
+//     wishlist.push(tyre);
+//     localStorage.setItem(key, JSON.stringify(wishlist));
+
+//     window.dispatchEvent(new Event('wishlistUpdated'));
+//     setIsInWishlist(true);
+//   } else {
+//     alert('Already in wishlist.');
+//   }
+// };
+
+// const handleAddToWishlist = () => {
+//   if (!tyre) return;
+
+//   const user = localStorage.getItem('loggedInUser');
+//   if (!user) {
+//     // Redirect to login or show a message
+//     alert('Please log in to add items to your wishlist.');
+//     window.location.href = '/Loginpage'; // or navigate('/login') if using react-router
+//     return;
+//   }
+
+//   const key = `wishlist_${user}`;
+//   const storedWishlist = localStorage.getItem(key);
+//   let wishlist = storedWishlist ? JSON.parse(storedWishlist) : [];
+
+//   const isAlreadyInWishlist = wishlist.some(item => item._id === tyre._id);
+//   if (!isAlreadyInWishlist) {
+//     wishlist.push(tyre);
+//     localStorage.setItem(key, JSON.stringify(wishlist));
+
+//     window.dispatchEvent(new Event('wishlistUpdated'));
+//     setIsInWishlist(true);
+//   } else {
+//     alert('Already in wishlist.');
+//   }
+// };
+
+
 const handleAddToWishlist = () => {
   if (!tyre) return;
 
   const user = localStorage.getItem('loggedInUser');
-  if (!user) return;
+  if (!user) {
+    // Open the login offcanvas instead of redirecting
+    const loginBox = document.getElementById('loginBox');
+    if (loginBox) {
+      const bsOffcanvas = new bootstrap.Offcanvas(loginBox);
+      bsOffcanvas.show();
+    }
+    return;
+  }
 
   const key = `wishlist_${user}`;
   const storedWishlist = localStorage.getItem(key);
@@ -1063,8 +1121,6 @@ const handleAddToWishlist = () => {
     alert('Already in wishlist.');
   }
 };
-
-
 
 
   const buttonStyle = {
