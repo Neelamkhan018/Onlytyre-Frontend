@@ -1053,7 +1053,8 @@ const [tractorModels, setTractorModels] = useState([]);
 const [selectedTractorBrand, setSelectedTractorBrand] = useState("");
 const [selectedTractorModel, setSelectedTractorModel] = useState("");
 
-
+ const [selectedTyreBrand, setSelectedTyreBrand] = useState("");
+  const [filteredTyreBrands, setFilteredTyreBrands] = useState([]);
        // -------------- Tyre Brand --------------------------------
 
 
@@ -1076,7 +1077,18 @@ const [selectedTractorModel, setSelectedTractorModel] = useState("");
 
   const activeTyreBrands = tyreBrands.filter(brand => brand.active);
 
+ // Filter tyre brands based on selected tyre type
+    useEffect(() => {
+        const activeTyreBrands = tyreBrands.filter(brand => brand.category === tyreType);
+        setFilteredTyreBrands(activeTyreBrands);
+    }, [tyreType, tyreBrands]);
 
+    // Handle tyre brand selection
+ const handleTyreBrandChange = (e) => {
+  const selectedBrand = e.target.value;
+  setTyreBrand(selectedBrand);
+  // Add any other logic here, if needed
+};
 
 //  ------------------------------ Car Brand / car Model -----------------------
 
@@ -1706,15 +1718,20 @@ const handleTyreTypeChange = (type) => {
 </select>
       </div> 
 
-      <div className="col-6">
-        <label htmlFor="tyreBrand">TYRE BRAND</label>
-        <select id="tyreBrand" value={tyreBrand} onChange={(e) => setTyreBrand(e.target.value)}>
-          <option value="">Select Tyre Brand</option>
-          {tyreBrands.map(option => (
-            <option key={option._id} value={option._id}>{option.name}</option>
-          ))}
-        </select>
-      </div>
+   
+
+                                    <div className="col-6">
+  <label htmlFor="tyreBrand">TYRE BRAND</label>
+  <select id="tyreBrand" value={tyreBrand} onChange={(e) => handleTyreBrandChange(e)}>
+    <option value="">Select Tyre Brand</option>
+    {filteredTyreBrands.map((brand) => (
+      <option key={brand._id} value={brand._id}>
+        {brand.name}
+      </option>
+    ))}
+  </select>
+</div>
+
 
       <div className="col-6">
         <label htmlFor="season">SEASON</label>
@@ -1781,15 +1798,20 @@ const handleTyreTypeChange = (type) => {
 </select>
       </div>
 
-      <div className="col-6">
-        <label htmlFor="tyreBrand">TYRE BRAND</label>
-        <select id="tyreBrand" value={tyreBrand} onChange={(e) => setTyreBrand(e.target.value)}>
-          <option value="">Select Tyre Brand</option>
-          {tyreBrands.map(option => (
-            <option key={option._id} value={option._id}>{option.name}</option>
-          ))}
-        </select>
-      </div>
+  
+
+                                         <div className="col-6">
+  <label htmlFor="tyreBrand">TYRE BRAND</label>
+  <select id="tyreBrand" value={tyreBrand} onChange={(e) => handleTyreBrandChange(e)}>
+    <option value="">Select Tyre Brand</option>
+    {filteredTyreBrands.map((brand) => (
+      <option key={brand._id} value={brand._id}>
+        {brand.name}
+      </option>
+    ))}
+  </select>
+</div>
+
 
       <div className="col-6">
         <label htmlFor="season">SEASON</label>
@@ -1853,21 +1875,19 @@ const handleTyreTypeChange = (type) => {
         </select>
       </div>
 
-      <div className="col-6">
-        <label htmlFor="tyreBrand">TYRE BRAND</label>
-        <select
-          id="tyreBrand"
-          value={tyreBrand}
-          onChange={(e) => setTyreBrand(e.target.value)}
-        >
-          <option value="">Select Tyre Brand</option>
-          {tyreBrands.map((option) => (
-            <option key={option._id} value={option._id}>
-              {option.name}
-            </option>
-          ))}
-        </select>
-      </div>
+
+                                         <div className="col-6">
+  <label htmlFor="tyreBrand">TYRE BRAND</label>
+  <select id="tyreBrand" value={tyreBrand} onChange={(e) => handleTyreBrandChange(e)}>
+    <option value="">Select Tyre Brand</option>
+    {filteredTyreBrands.map((brand) => (
+      <option key={brand._id} value={brand._id}>
+        {brand.name}
+      </option>
+    ))}
+  </select>
+</div>
+
 
       <div className="col-6">
         <label htmlFor="season">SEASON</label>
@@ -1942,21 +1962,20 @@ const handleTyreTypeChange = (type) => {
         </select>
       </div>
 
-      <div className="col-6">
-        <label htmlFor="tyreBrand">TYRE BRAND</label>
-        <select
-          id="tyreBrand"
-          value={tyreBrand}
-          onChange={(e) => setTyreBrand(e.target.value)}
-        >
-          <option value="">Select Tyre Brand</option>
-          {tyreBrands.map((option) => (
-            <option key={option._id} value={option._id}>
-              {option.name}
-            </option>
-          ))}
-        </select>
-      </div>
+ 
+
+                                         <div className="col-6">
+  <label htmlFor="tyreBrand">TYRE BRAND</label>
+  <select id="tyreBrand" value={tyreBrand} onChange={(e) => handleTyreBrandChange(e)}>
+    <option value="">Select Tyre Brand</option>
+    {filteredTyreBrands.map((brand) => (
+      <option key={brand._id} value={brand._id}>
+        {brand.name}
+      </option>
+    ))}
+  </select>
+</div>
+
 
       <div className="col-6">
         <label htmlFor="season">SEASON</label>
