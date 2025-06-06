@@ -386,40 +386,6 @@ export default function HeaderMenu({ cart }) {
   const [wishlistCount, setWishlistCount] = useState(0);
 
 
-
-
-
-  // useEffect(() => {
-  //   const storedUser = localStorage.getItem('loggedInUser');
-  //   if (storedUser) setLoggedInUser(storedUser);
-  
-    // const loadCart = () => {
-    //   const storedCart = localStorage.getItem('cart');
-    //   if (storedCart) {
-    //     const cartItems = JSON.parse(storedCart);
-    //     setCartCount(cartItems.reduce((count, item) => count + (item.count || 0), 0));
-    //   }
-    // };
-  
-  //   const loadWishlist = () => {
-  //     const storedWishlist = localStorage.getItem('wishlist');
-  //     if (storedWishlist) {
-  //       const wishlistItems = JSON.parse(storedWishlist);
-  //       setWishlistCount(wishlistItems.length);
-  //     }
-  //   };
-  
-  //   loadCart();
-  //   loadWishlist();
-  
-  //   window.addEventListener('cartUpdated', loadCart);
-  //   window.addEventListener('wishlistUpdated', loadWishlist);
-  
-  //   return () => {
-  //     window.removeEventListener('cartUpdated', loadCart);
-  //     window.removeEventListener('wishlistUpdated', loadWishlist);
-  //   };
-  // }, []);
   
 useEffect(() => {
   const storedUser = localStorage.getItem('loggedInUser');
@@ -524,7 +490,7 @@ useEffect(() => {
                   <img src="/assets/images/logo/logo.png" alt="Logo" />
                 </Link>
 
-                <ul
+                {/* <ul
                   className={`desktopNav ${menuOpen ? 'open' : ''}`}
                   style={{
                     display: 'flex',
@@ -569,14 +535,10 @@ useEffect(() => {
                       <li style={{ padding: '10px 15px' }}>
                         <Link to="/forTractor" style={{ textDecoration: 'none', color: 'black' }}>TRACTOR</Link>
                       </li>
-
-                      <li style={{ padding: '10px 15px' }}>
-                        <Link to="/accessories" style={{ textDecoration: 'none', color: 'black' }}>ACCESSORIES</Link>
-                      </li>
                      
                     </ul>
                   </li>
-
+                   <li><Link to="/accessories">ACCESSORIES</Link></li>
                   <li><Link to="/batteries">BATTERIES</Link></li> 
                   <li><Link to="/alloywheel">ALLOY WHEEL</Link></li>
                 
@@ -584,7 +546,124 @@ useEffect(() => {
 
                  
 
-                </ul>
+                </ul> */}
+                
+
+                <ul 
+  className={`navbar-nav d-flex flex-lg-row flex-column gap-3 align-items-lg-center desktopNav ${menuOpen ? 'open' : ''}`} 
+  style={{
+    display: 'flex',
+    flexDirection: window.innerWidth <= 768 ? 'column' : 'row',
+    listStyle: 'none',
+    padding: 0,
+    margin: 0,
+    gap: window.innerWidth <= 768 ? '10px' : '20px',
+    alignItems: window.innerWidth <= 768 ? 'flex-start' : 'center',
+    whiteSpace: 'nowrap'
+  }}
+>
+  <li><Link to="/" style={{ textDecoration: 'none', color: 'black' }}>HOME</Link></li>
+  <li><Link to="/bestdeal" style={{ textDecoration: 'none', color: 'black' }}>BEST DEAL</Link></li>
+  <li><Link to="/tyres" style={{ textDecoration: 'none', color: 'black' }}>TYRES</Link></li>
+  <li><Link to="/forcar" style={{ textDecoration: 'none', color: 'black' }}>CAR</Link></li>
+  <li><Link to="/forbike" style={{ textDecoration: 'none', color: 'black' }}>BIKE</Link></li>
+
+
+  <li
+    style={{ position: 'relative', cursor: 'pointer' }}
+    onMouseEnter={() => setDropdownOpen('heavy')}
+    onMouseLeave={() => setDropdownOpen(null)}
+  >
+    <Link
+      to="#"
+      style={{
+        textDecoration: 'none',
+        color: 'black',
+        display: 'flex',
+        alignItems: 'center',
+        gap:'5px',
+      }}
+    >
+      HEAVY VEHICLES <span style={{ fontSize: '0.7em', marginTop: '2px' }}>▼</span>
+    </Link>
+
+    <ul
+      style={{
+        position: window.innerWidth <= 768 ? 'static' : 'absolute',
+        top: window.innerWidth <= 768 ? 'auto' : '100%',
+        left: 0,
+        display: dropdownOpen === 'heavy' ? 'block' : 'none',
+        listStyle: 'none',
+        padding: 0,
+        margin: 0,
+        backgroundColor: 'white',
+        boxShadow: '0 8px 16px rgba(0, 0, 0, 0.2)',
+        zIndex: 1000,
+        borderRadius: '6px',
+        overflow: 'hidden',
+        transition: 'all 0.3s ease',
+        minWidth: '180px'
+      }}
+    >
+      <li style={{ padding: '12px 16px', cursor: 'pointer' }}>
+        <Link to="/forTruck" style={{ textDecoration: 'none', color: 'black' }}>TRUCK</Link>
+      </li>
+      <li style={{ padding: '12px 16px', cursor: 'pointer' }}>
+        <Link to="/forTractor" style={{ textDecoration: 'none', color: 'black' }}>TRACTOR</Link>
+      </li>
+    </ul>
+  </li>
+
+
+  <li
+    style={{ position: 'relative', cursor: 'pointer' }}
+    onMouseEnter={() => setDropdownOpen('parts')}
+    onMouseLeave={() => setDropdownOpen(null)}
+  >
+    <Link
+      to="#"
+      style={{
+        textDecoration: 'none',
+        color: 'black',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '5px',
+      }}
+    >
+      PARTS & ACCESSORIES <span style={{ fontSize: '0.7em', marginTop: '2px' }}>▼</span>
+    </Link>
+
+    <ul
+      style={{
+        position: window.innerWidth <= 768 ? 'static' : 'absolute',
+        top: window.innerWidth <= 768 ? 'auto' : '100%',
+        left: 0,
+        display: dropdownOpen === 'parts' ? 'block' : 'none',
+        listStyle: 'none',
+        padding: 0,
+        margin: 0,
+        backgroundColor: 'white',
+        boxShadow: '0 8px 16px rgba(0, 0, 0, 0.2)',
+        zIndex: 1000,
+        borderRadius: '6px',
+        overflow: 'hidden',
+        transition: 'all 0.3s ease',
+        minWidth: '180px'
+      }}
+    >
+      <li style={{ padding: '12px 16px', cursor: 'pointer' }}>
+        <Link to="/accessories" style={{ textDecoration: 'none', color: 'black' }}>ACCESSORIES</Link>
+      </li>
+      <li style={{ padding: '12px 16px', cursor: 'pointer' }}>
+        <Link to="/batteries" style={{ textDecoration: 'none', color: 'black' }}>BATTERIES</Link>
+      </li>
+      <li style={{ padding: '12px 16px', cursor: 'pointer' }}>
+        <Link to="/alloywheel" style={{ textDecoration: 'none', color: 'black' }}>ALLOY WHEEL</Link>
+      </li>
+    </ul>
+  </li>
+</ul>
+
 
                 <div className="userMenu">
                   <ul>
