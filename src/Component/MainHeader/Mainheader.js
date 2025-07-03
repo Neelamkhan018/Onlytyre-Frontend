@@ -1307,125 +1307,9 @@ const handleTyreTypeChange = (type) => {
 
   return (
     <>
-      <section className="banner">
-        <div className="container">
-          <div className="wrapper">
-            <Swiper
-              loop={true}
-              slidesPerView={1}
-              autoplay={{
-                delay: 3500,
-                disableOnInteraction: true,
-              }}
-              speed={1500}
-              modules={[Autoplay]}
-            >
-              <SwiperSlide>
-                <div className="row align-items-center">
-                  <div className="col-md-6">
-                    <div className="details">
-                      <h1>The Easiest Way to Buy Tyres Online</h1>
-                      <ul>
-                        <li>No Money Down Payment Plans*</li>
-                        <li>Fast and Free Shipping</li>
-                      </ul>
-                      <Link href="/" className="btn2">
-                        <span>SHOP TYRES NOW</span>
-                      </Link>
-                    </div>
-                  </div>
-                  <div className="col-md-6">
-                    <img
-                      src="assets/images/banner/001.png"
-                      className="bannerImg"
-                      alt=""
-                    />
-                  </div>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide>
-                <div className="row align-items-center">
-                  <div className="col-md-6">
-                    <div className="details">
-                      <h1>The Easiest Way to Buy Tyres Online</h1>
-                      <ul>
-                        <li>No Money Down Payment Plans*</li>
-                        <li>Fast and Free Shipping</li>
-                      </ul>
-                      <Link href="/" className="btn2">
-                        <span>SHOP TYRES NOW</span>
-                      </Link>
-                    </div>
-                  </div>
-                  <div className="col-md-6">
-                    <img
-                      src="assets/images/banner/001.png"
-                      className="bannerImg"
-                      alt=""
-                    />
-                  </div>
-                </div>
-              </SwiperSlide>
-            </Swiper>
-          </div>
-        </div>
-      </section>
-      <section className="whyChoose | padding-block-500">
-        <div className="container">
-          <div className="row">
-            <div className="col-12">
-              <h1 className="heading1 text-center">
-                Why you should choose us?
-              </h1>
-            </div>
-          </div>
-          <div className="row row-gap-4 mt-5">
-            <div className="col-md-4">
-              <div className="box">
-                <div className="icon">
-                  <img
-                    src="assets/images/icons/svg/delivery-truck.svg"
-                    alt=""
-                  />
-                </div>
-                <h2>Fast and free delivery</h2>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Aenean sagittis, libero et egestas scelerisque
-                </p>
-              </div>
-            </div>
-            <div className="col-md-4">
-              <div className="box">
-                <div className="icon">
-                  <img src="assets/images/icons/svg/support.svg" alt="" />
-                </div>
-                <h2>Fast and free delivery</h2>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Aenean sagittis, libero et egestas scelerisque
-                </p>
-              </div>
-            </div>
-            <div className="col-md-4">
-              <div className="box">
-                <div className="icon">
-                  <img
-                    src="assets/images/icons/svg/secure-shield-password-protect-safe.svg"
-                    alt=""
-                  />
-                </div>
-                <h2>Fast and free delivery</h2>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Aenean sagittis, libero et egestas scelerisque
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section className="searchBanner">
+      
+
+ <section className="searchBanner">
         <div className="container">
           <div className="wrapper">
             <div className="row row-gap-4 align-items-center">
@@ -2016,6 +1900,129 @@ const handleTyreTypeChange = (type) => {
           </div>
         </div>
       </section>
+      
+      <section className="whyChoose | padding-block-500">
+        <div className="container">
+          <div className="row">
+            <div className="col-12">
+              <h1 className="heading1 text-center">
+                Why you should choose us?
+              </h1>
+            </div>
+          </div>
+          <div className="row row-gap-4 mt-5">
+            <div className="col-md-4">
+              <div className="box">
+                <div className="icon">
+                  <img
+                    src="assets/images/icons/svg/delivery-truck.svg"
+                    alt=""
+                  />
+                </div>
+                <h2>Fast and free delivery</h2>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Aenean sagittis, libero et egestas scelerisque
+                </p>
+              </div>
+            </div>
+            <div className="col-md-4">
+              <div className="box">
+                <div className="icon">
+                  <img src="assets/images/icons/svg/support.svg" alt="" />
+                </div>
+                <h2>Fast and free delivery</h2>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Aenean sagittis, libero et egestas scelerisque
+                </p>
+              </div>
+            </div>
+            <div className="col-md-4">
+              <div className="box">
+                <div className="icon">
+                  <img
+                    src="assets/images/icons/svg/secure-shield-password-protect-safe.svg"
+                    alt=""
+                  />
+                </div>
+                <h2>Fast and free delivery</h2>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Aenean sagittis, libero et egestas scelerisque
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+     <section className="banner">
+        <div className="container">
+          <div className="wrapper">
+            <Swiper
+              loop={true}
+              slidesPerView={1}
+              autoplay={{
+                delay: 3500,
+                disableOnInteraction: true,
+              }}
+              speed={1500}
+              modules={[Autoplay]}
+            >
+              <SwiperSlide>
+                <div className="row align-items-center">
+                  <div className="col-md-6">
+                    <div className="details">
+                      <h1>The Easiest Way to Buy Tyres Online</h1>
+                      <ul>
+                        <li>No Money Down Payment Plans*</li>
+                        <li>Fast and Free Shipping</li>
+                      </ul>
+                      <Link href="/" className="btn2">
+                        <span>SHOP TYRES NOW</span>
+                      </Link>
+                    </div>
+                  </div>
+                  <div className="col-md-6">
+                    <img
+                      src="assets/images/banner/001.png"
+                      className="bannerImg"
+                      alt=""
+                    />
+                  </div>
+                </div>
+              </SwiperSlide>
+              <SwiperSlide>
+                <div className="row align-items-center">
+                  <div className="col-md-6">
+                    <div className="details">
+                      <h1>The Easiest Way to Buy Tyres Online</h1>
+                      <ul>
+                        <li>No Money Down Payment Plans*</li>
+                        <li>Fast and Free Shipping</li>
+                      </ul>
+                      <Link href="/" className="btn2">
+                        <span>SHOP TYRES NOW</span>
+                      </Link>
+                    </div>
+                  </div>
+                  <div className="col-md-6">
+                    <img
+                      src="assets/images/banner/001.png"
+                      className="bannerImg"
+                      alt=""
+                    />
+                  </div>
+                </div>
+              </SwiperSlide>
+            </Swiper>
+          </div>
+        </div>
+      </section>
+
+
    
 <section className="padding-block-500">
   <div className="container">
